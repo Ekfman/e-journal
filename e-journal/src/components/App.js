@@ -1,4 +1,5 @@
-// import './App.css';
+import './App.css';
+import 'react-calendar/dist/Calendar.css'
 import { useState } from 'react';
 import Calendar from 'react-calendar';
 
@@ -7,7 +8,7 @@ function App() {
  
  return (
   <div className="app">
-    <h1 className="header">React Calendar</h1>
+    <h1 className="header">The month at a glance</h1>
     <div className="calendar-container">
       <Calendar onChange={setDate} value={date}/>
     </div>
