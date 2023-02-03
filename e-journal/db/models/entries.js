@@ -1,6 +1,17 @@
 const client = require("../client");
 
-async function addEntry ({createDate, eventDate, title, description, content}) {
+async function getAllEntries () {
+    try {
+        const { rows } = await client.query(`
+            SELECT * FROM entries
+        `)
+        return rows;
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+async function addEntry (createDate, eventDate, title, description, content) {
     try {
         const { rows: [entry] } = await client.query(
             `
@@ -10,12 +21,13 @@ async function addEntry ({createDate, eventDate, title, description, content}) {
             `, [createDate, eventDate, title, description, content])
             return entry;
     } catch (error) {
-        console.log('could not create entry');
+        console.log(error);
     }
 }
 
 
 
 module.exports = {
-    addEntry
+    getAllEntries,
+    addEntry,
 }
