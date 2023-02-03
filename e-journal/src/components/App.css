@@ -1,12 +1,23 @@
+.app{
+  background: url("/assets/pinkSkyArchitecture.jpg")no-repeat center fixed;
+  background-size: cover;
+  display: flex;
+  flex-direction: column;
+}
+
+.calendar-container{
+  margin-top: 200px;
+}
+
 .react-calendar { 
-  width: 400px;
-  max-width: 100%;
+  width: 800px;
   background-color: #fff;
   color: #222;
   border-radius: 8px;
   box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2);
   font-family: Arial, Helvetica, sans-serif;
   line-height: 1.125em;
+  margin-bottom: 100%;
  }
  .react-calendar__navigation button {
   color: #6f48eb;

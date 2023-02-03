@@ -36,7 +36,7 @@ const handle = server.listen(PORT, async () => {
 
   try {
     await client.connect();
-    console.log('Database is open for business!');
+    console.log('Database is open!');
   } catch (error) {
     console.error('Database is closed for repairs!\n', error);
   }
