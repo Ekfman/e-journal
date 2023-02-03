@@ -3,24 +3,66 @@
   background-size: cover;
   display: flex;
   flex-direction: column;
+  min-height: 100%;
+  min-width: 1024px;
+  width: 100%;
+  height: auto;
+  position: fixed;
+  top: 0;
+  left: 0;
 }
+
+/* @media screen and (max-width: 1024px) {
+  .app {
+    left: 50%;
+    margin-left: -512px;
+  }
+} */
 
 .calendar-container{
   margin-top: 200px;
+  display: flex;
+  flex-direction: column;
+  border: 2px black solid;
+}
+
+.newEntryButton{
+  width: 8%;
+  justify-content: right;
+  border-radius: 15px;
+  padding: 8px 0px 8px 0px;
+  background-color: rgba(226, 201, 206, 0.728);
+  font-weight: 700;
+  color: white;
+  border: 2px solid white;
+}
+
+.newEntryButton:hover{
+  width: 8%;
+  justify-content: right;
+  border-radius: 15px;
+  padding: 8px 0px 8px 0px;
+  background-color: rgba(253, 180, 193, 0.621);
+  font-weight: 700;
+  color: white;
+  border: 2px solid white;
 }
 
 .react-calendar { 
-  width: 800px;
+  width: 1000px;
   background-color: #fff;
-  color: #222;
+  color: white;
+  border: 3px solid white;
+  padding: 20px; 
+  padding-bottom: 60px;
+  background-color: rgba(230, 194, 200, 0.545);
   border-radius: 8px;
   box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2);
   font-family: Arial, Helvetica, sans-serif;
-  line-height: 1.125em;
-  margin-bottom: 100%;
+  line-height: 2em;
  }
  .react-calendar__navigation button {
-  color: #6f48eb;
+  color: white;
   min-width: 44px;
   background: none;
   font-size: 16px;
