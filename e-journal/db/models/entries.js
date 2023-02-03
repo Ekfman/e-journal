@@ -16,9 +16,10 @@ async function addEntry (createDate, eventDate, title, description, content) {
         const { rows: [entry] } = await client.query(
             `
                 INSERT INTO entries("createDate", "eventDate", title, description, content)
-                VALUES (${createDate}, ${eventDate}, ${title}, ${description}, ${content})
+                VALUES ($1, $2, $3, $4, $5)
                 RETURNING*;
             `, [createDate, eventDate, title, description, content])
+            console.log('entry :>> ', entry);
             return entry;
     } catch (error) {
         console.log(error);
