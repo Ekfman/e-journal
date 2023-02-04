@@ -1,11 +1,27 @@
 import './App.css';
-// import 'react-calendar/dist/Calendar.css'
-import { useState } from 'react';
-import Calendar from 'react-calendar';
+// import { useState } from 'react';
+import { Calendar, dateFnsLocalizer } from 'react-big-calendar';
+import format from 'date-fns/format';
+import parse from 'date-fns/parse';
+import startOfWeek from 'date-fns/startOfWeek';
+import getDay from 'date-fns/getDay';
+import "react-big-calendar/lib/css/react-big-calendar.css";
+// import DatePicker from "react-datepicker";
 // import settings from '/assets'
 
+const locales = {
+  "en-US": require("date-fns/locale/en-US")
+}
+
+const localizer = dateFnsLocalizer({
+  format,
+  parse,
+  startOfWeek,
+  getDay,
+  locales
+})
+
 function App() {
-  const [date, setDate] = useState(new Date())
  
  return (
   <div className="app">
@@ -19,9 +35,8 @@ function App() {
 
     <div className="calendar-container">
     <button className='newEntryButton'>Create Entry</button>
-      <center><Calendar onChange={setDate} value={date}/></center>
+      <center><Calendar localizer={localizer} style={{height: 500, margin: "50px"}}/></center>
     <div className="text-center">
-       Selected date: {date.toDateString()}
     </div>
     </div>
   </div>
