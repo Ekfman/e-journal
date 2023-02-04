@@ -6,6 +6,7 @@ import parse from 'date-fns/parse';
 import startOfWeek from 'date-fns/startOfWeek';
 import getDay from 'date-fns/getDay';
 import "react-big-calendar/lib/css/react-big-calendar.css";
+// import { MonthView } from 'react-calendar';
 // import DatePicker from "react-datepicker";
 // import settings from '/assets'
 
@@ -33,9 +34,9 @@ function App() {
       </ul>
     </nav>
 
-    <div className="calendar-container">
     <button className='newEntryButton'>Create Entry</button>
-      <center><Calendar localizer={localizer} style={{height: 500, margin: "50px"}}/></center>
+    <div className="calendar-container">
+      <center><Calendar localizer={localizer} style={{height: 500, margin: "50px"}} views={['month', 'day']}/></center>
     <div className="text-center">
     </div>
     </div>

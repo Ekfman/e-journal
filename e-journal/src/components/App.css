@@ -10,6 +10,7 @@
   position: fixed;
   top: 0;
   left: 0;
+  align-items: center;
 }
 
 /* @media screen and (max-width: 1024px) {
@@ -20,10 +21,11 @@
 } */
 
 .calendar-container{
-  margin-top: 200px;
   display: flex;
   flex-direction: column;
-  border: 2px black solid;
+  background-color: rgba(255, 255, 255, 0.436);
+  width: 80%;
+  /* border: 2px black solid; */
 }
 
 .newEntryButton{
@@ -48,7 +50,7 @@
   border: 2px solid white;
 }
 
-.react-calendar { 
+/* .react-calendar { 
   width: 1000px;
   background-color: #fff;
   color: white;
@@ -116,5 +118,26 @@
  .react-calendar__tile--active:enabled:focus {
   background: #89c1d4;
   color: white;
+ } */
+
+ .rbc-header{
+  height: 50px;
+  padding-top: 15px;
+  color: white;  
+  font-weight: bold;
+
+ }
+
+ .rbc-toolbar-label{
+  color: white;
+  font-weight: bold;
+  font-size: xx-large;
+  background-color: rgba(255, 192, 203, 0.561);
+ }
+
+ .rbc-month-view{
+  border: none !important;
+  /* border-radius: 12px;
+  background-color: rgba(255, 255, 255, 0.484); */
  }
  
