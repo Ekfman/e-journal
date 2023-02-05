@@ -140,4 +140,37 @@
   /* border-radius: 12px;
   background-color: rgba(255, 255, 255, 0.484); */
  }
+
+ .form-container{
+  border: 2px solid black;
+  display: flex;
+  flex-direction: column;
+  /* border-radius: 12px; */
+ }
+
+ .title{
+  font-size: x-large;
+  background-color: rgba(255, 255, 255, 0.754);
+  border: none;
+ }
+
+ .description{
+  font-size: larger;
+  background-color: rgba(255, 255, 255, 0.754);
+  border: none;
+  border-top: 1px solid rgb(134, 134, 134);
+
+ }
+
+ .content{
+  font-size: large;
+  background-color: rgba(255, 255, 255, 0.754);
+  border: none;
+ }
+
+ .date{
+  font-size: large;
+  background-color: rgba(255, 255, 255, 0.754);
+  border: none;
+ }
  

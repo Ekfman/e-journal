@@ -7,11 +7,13 @@ const Entry = ( {navigate, createEntry, setCreateEntry }) => {
     }
     return (
         <>
-            <form>
-                <input placeholder="YYYY-MM-DD"/>
-                <input placeholder="Title"></input>
-                <input placeholder="Descrpition"></input>
-                <input placeholder="Get all your thought out here."></input>
+            <form className="form-container">
+                <input className="date" type="date" placeholder="YYYY-MM-DD"/>
+                <br></br>
+                <input className="title" placeholder="Title"></input>
+                <input className="description" placeholder="Description"></input>
+                <br></br>
+                <textarea className="content" rows="5" cols="60" name="text" placeholder="What happened?! Tell me."></textarea>
             </form>
             <button onClick={cancelHandler}>Cancel</button>
         </>
