@@ -1,15 +1,19 @@
 
 
-const Entry = () => {
-    
-    
+const Entry = ( {navigate, createEntry, setCreateEntry }) => {
+    const cancelHandler = () => {
+        setCreateEntry( prev => !prev)
+        navigate("/")
+    }
     return (
         <>
             <form>
-                <input defaultValue="Title"></input>
-                <input defaultValue="Descrpition"></input>
-                <input defaultValue="Get all your thought out here."></input>
+                <input placeholder="YYYY-MM-DD"/>
+                <input placeholder="Title"></input>
+                <input placeholder="Descrpition"></input>
+                <input placeholder="Get all your thought out here."></input>
             </form>
+            <button onClick={cancelHandler}>Cancel</button>
         </>
     )
 }

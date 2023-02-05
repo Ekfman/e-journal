@@ -6,6 +6,9 @@ import parse from 'date-fns/parse';
 import startOfWeek from 'date-fns/startOfWeek';
 import getDay from 'date-fns/getDay';
 import "react-big-calendar/lib/css/react-big-calendar.css";
+import { useNavigate} from 'react-router-dom';
+import Entry from './Entry';
+import { useState } from 'react';
 // import { MonthView } from 'react-calendar';
 // import DatePicker from "react-datepicker";
 // import settings from '/assets'
@@ -23,7 +26,14 @@ const localizer = dateFnsLocalizer({
 })
 
 function App() {
- 
+  const navigate = useNavigate()
+  
+  const [createEntry, setCreateEntry] = useState(false);
+
+  const newEntryHandler = () => {
+    navigate("/entry");
+    setCreateEntry( prev => !prev);
+  }
  return (
   <div className="app">
     <nav>
@@ -33,13 +43,20 @@ function App() {
       <li>Clean</li>
       </ul>
     </nav>
-
-    <button className='newEntryButton'>Create Entry</button>
+    { createEntry ? (
+       <>
+       <Entry navigate={navigate} createEntry={createEntry} setCreateEntry={setCreateEntry}/>
+   </>
+    ) : (
+      <>
+    <button className='newEntryButton' onClick={newEntryHandler}>Create Entry</button>
     <div className="calendar-container">
       <center><Calendar localizer={localizer} style={{height: 500, margin: "50px"}} views={['month', 'day']}/></center>
     <div className="text-center">
     </div>
     </div>
+      </>
+    ) }
   </div>
    )
  
