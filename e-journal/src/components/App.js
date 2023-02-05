@@ -25,6 +25,15 @@ const localizer = dateFnsLocalizer({
   locales
 })
 
+const entries = [
+  {title: "New Dog",
+  description: "Got a new puppy",
+  content: "today I got a labradoodle. Her name is Sally",
+  start: new Date('2023','02','03')
+  }
+]
+console.log('entries :>> ', entries);
+
 function App() {
   const navigate = useNavigate()
   
@@ -37,11 +46,16 @@ function App() {
  return (
   <div className="app">
     <nav>
-      <ul>Settings
-      <li>Sleek</li>
-      <li>Dreamy</li>
-      <li>Clean</li>
-      </ul>
+      <div className="dropdown">
+    <button className="dropbtn">Customize
+      <i className="fa fa-caret-down"></i>
+    </button>
+    <div className="dropdown-content">
+      <button>Dreamy</button>
+      <button>Sleek</button>
+      <button>Clean</button>
+    </div>
+  </div>
     </nav>
     { createEntry ? (
        <>
@@ -51,7 +65,7 @@ function App() {
       <>
     <button className='newEntryButton' onClick={newEntryHandler}>Create Entry</button>
     <div className="calendar-container">
-      <center><Calendar localizer={localizer} style={{height: 500, margin: "50px"}} views={['month', 'day']}/></center>
+      <center><Calendar localizer={localizer} style={{height: 500, margin: "50px"}} views={['month', 'day']} events={entries} startAccessor='start'/></center>
     <div className="text-center">
     </div>
     </div>
