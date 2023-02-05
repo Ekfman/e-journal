@@ -11,14 +11,14 @@ async function getAllEntries () {
     }
 }
 
-async function addEntry (createDate, eventDate, title, description, content) {
+async function addEntry (createDate, eventDate, title, content) {
     try {
         const { rows: [entry] } = await client.query(
             `
-                INSERT INTO entries("createDate", "eventDate", title, description, content)
-                VALUES ($1, $2, $3, $4, $5)
+                INSERT INTO entries("createDate", "eventDate", title, content)
+                VALUES ($1, $2, $3, $4)
                 RETURNING*;
-            `, [createDate, eventDate, title, description, content])
+            `, [createDate, eventDate, title, content])
             console.log('entry :>> ', entry);
             return entry;
     } catch (error) {

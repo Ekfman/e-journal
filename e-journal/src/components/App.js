@@ -29,10 +29,10 @@ const entries = [
   {title: "New Dog",
   description: "Got a new puppy",
   content: "today I got a labradoodle. Her name is Sally",
-  start: new Date('2023','02','03')
+  start: new Date('2023','02','03'),
+  end: new Date('2023','02','03')
   }
 ]
-console.log('entries :>> ', entries);
 
 function App() {
   const navigate = useNavigate()
@@ -42,6 +42,14 @@ function App() {
   const newEntryHandler = () => {
     navigate("/entry");
     setCreateEntry( prev => !prev);
+  }
+
+  const handleEntryClick = () => {
+    console.log("clicked!")
+  }
+
+  const handleSelectDate = () => {
+    console.log("create a journal entry for today!");
   }
  return (
   <div className="app">
@@ -65,7 +73,9 @@ function App() {
       <>
     <button className='newEntryButton' onClick={newEntryHandler}>Create Entry</button>
     <div className="calendar-container">
-      <center><Calendar localizer={localizer} style={{height: 500, margin: "50px"}} views={['month', 'day']} events={entries} startAccessor='start'/></center>
+      <center><Calendar localizer={localizer} style={{height: 500, margin: "50px"}} views={['month', 'day']} events={entries} 
+        startAccessor='start' endAccessor='end' onSelectEvent={handleEntryClick}
+        onSelectSlot={handleSelectDate}/></center>
     <div className="text-center">
     </div>
     </div>
