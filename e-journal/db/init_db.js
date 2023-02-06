@@ -12,7 +12,7 @@ async function buildTables() {
                 "createDate" DATE NOT NULL,
                 "eventDate" DATE NOT NULL,
                 title VARCHAR(255) NOT NULL,
-                content TEXT
+                content TEXT NOT NULL
             );
         `)
     } catch (error) {
