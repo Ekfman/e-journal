@@ -6,6 +6,9 @@ const Entry = ( { createEntry, setCreateEntry, currentDate, date, setDate, title
     const navigate = useNavigate();
     const cancelHandler = () => {
         setCreateEntry( prev => !prev)
+        setDate("")
+        setTitle("")
+        setContent("")
         navigate("/")
     }
     const onSubmit =  async (e) => {
@@ -37,11 +40,11 @@ const Entry = ( { createEntry, setCreateEntry, currentDate, date, setDate, title
             console.log(error);
         }
     }
-
+    console.log('date :>> ', date);
     return (
         <>
             <form className="form-container">
-                <input className="date" type="date" onChange={e => setDate(e.target.value)}/>
+                <input className="date" type="date" value={date} onChange={e => setDate(e.target.value)}/>
                 <br></br>
                 <input className="title" placeholder="Title" onChange={e => setTitle(e.target.value)}></input>
                 <br></br>

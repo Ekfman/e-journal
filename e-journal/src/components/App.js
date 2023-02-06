@@ -9,6 +9,7 @@ import "react-big-calendar/lib/css/react-big-calendar.css";
 import { useNavigate } from "react-router-dom";
 import Entry from "./Entry";
 import { useEffect, useState } from "react";
+import { callApi } from "../api/utils";
 // import { MonthView } from 'react-calendar';
 // import DatePicker from "react-datepicker";
 // import settings from '/assets'
@@ -25,7 +26,7 @@ const localizer = dateFnsLocalizer({
   locales,
 });
 
-const entries = [
+const events = [
   {
     title: "New Dog",
     description: "Got a new puppy",
@@ -33,7 +34,14 @@ const entries = [
     start: new Date("2023", "02", "03"),
     end: new Date("2023", "02", "03"),
   },
+  {
+    title: "Galentine's Day Drama",
+    content: "It all started with periods",
+    start: new Date("2023", "02", "01"),
+    end: new Date("2023", "02", "01"),
+  }
 ];
+console.log('events :>> ', events);
 
 const stringifyCurrentDate = () => {
   let today = new Date();
@@ -57,6 +65,13 @@ const stringifyCurrentDate = () => {
   }
   return currentDateFormatted
 }
+
+
+
+// const eventBuilder = () => {
+
+// }
+
 function App() {
   const navigate = useNavigate();
 
@@ -65,6 +80,7 @@ function App() {
   const [date, setDate] = useState("");
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
+  const [allEntries, setAllEntries] = useState([])
 
   useEffect( () => {
     setCurrentDate(stringifyCurrentDate())
@@ -81,9 +97,50 @@ function App() {
     console.log("clicked!");
   };
 
-  const handleSelectDate = () => {
-    console.log("create a journal entry for today!");
+  const handleSelectSlot = (date) => {
+    let year = `${date.start.getFullYear()}`
+    let month = `${date.start.getMonth() + 1}`
+    let day = `${date.start.getDate()}`
+    if(day.length < 2){
+      day = "0" + day
+    }
+    if(month.length < 2){
+      month = "0" + month
+    }
+  
+    let clickedDay = `${year}-${month}-${day}`
+    // let clickedDayFormatted = `${day}/${month}/${year}`
+    console.log(clickedDay);
+    let prompt = window.confirm(`Do you want to create an entry for ${month}/${day}/${year}`)
+    if(prompt){
+      setCreateEntry( prev => !prev)
+      setDate(clickedDay)
+      navigate("/entry")
+    }
+  }
+
+  const getAllEntries = async () => {
+    try {
+      let entries = await callApi({
+        path: "/entries"
+      })
+      entries.map( entry => {  
+        entry.start = entry.createDate
+        entry.end = entry.createDate
+        return entry;
+        } )
+      console.log(entries);
+      return entries;
+    } catch (error) {
+      console.log(error)
+    }
   };
+
+  useEffect( () => {
+    setAllEntries(getAllEntries())
+  }, []);
+  console.log('allEntr :>> ', allEntries);
+
   return (
     <div className="app">
       <nav>
@@ -125,11 +182,12 @@ function App() {
                 localizer={localizer}
                 style={{ height: 500, margin: "50px" }}
                 views={["month", "day"]}
-                events={entries}
+                events={events}
                 startAccessor="start"
                 endAccessor="end"
+                selectable={true}
                 onSelectEvent={handleEntryClick}
-                onSelectSlot={handleSelectDate}
+                onSelectSlot={handleSelectSlot}
               />
             </center>
             <div className="text-center"></div>
