@@ -11,7 +11,7 @@ entriesRouter.get("/", async (req, res, next) => {
     }
 }
 )
-entriesRouter.post("/", async (req, res, next) => {
+entriesRouter.post("/create", async (req, res, next) => {
     try {
         const { createDate, eventDate, title, content } = req.body;
         const newEntry = await addEntry (createDate, eventDate, title, content)

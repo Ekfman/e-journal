@@ -8,7 +8,7 @@ import getDay from "date-fns/getDay";
 import "react-big-calendar/lib/css/react-big-calendar.css";
 import { useNavigate } from "react-router-dom";
 import Entry from "./Entry";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 // import { MonthView } from 'react-calendar';
 // import DatePicker from "react-datepicker";
 // import settings from '/assets'
@@ -35,13 +35,42 @@ const entries = [
   },
 ];
 
+const stringifyCurrentDate = () => {
+  let today = new Date();
+  let day = `${today.getDate()}`;
+  let month = `${today.getMonth() + 1}`
+  let year = `${today.getFullYear()}`;
+  console.log("Month length:", month.length);
+  if(day.length < 2){
+    day = "0" + day
+  }
+  if(month.length < 2){
+    month = "0" + month
+  }
+
+  let currentDateServer = `${year}-${month}-${day}`
+  let currentDateClient = `${day}/${month}/${year}`
+  
+  let currentDateFormatted = {
+    currentDateServer,
+    currentDateClient
+  }
+  return currentDateFormatted
+}
 function App() {
   const navigate = useNavigate();
 
   const [createEntry, setCreateEntry] = useState(false);
+  const [currentDate, setCurrentDate] = useState({});
   const [date, setDate] = useState("");
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
+
+  useEffect( () => {
+    setCurrentDate(stringifyCurrentDate())
+  }, []) 
+  console.log(currentDate);
+  
 
   const newEntryHandler = () => {
     navigate("/entry");
@@ -73,15 +102,16 @@ function App() {
       {createEntry ? (
         <>
           <Entry
-            navigate={navigate}
             createEntry={createEntry}
             setCreateEntry={setCreateEntry}
+            currentDate={currentDate}
             date={date}
             setDate={setDate}
             title={title}
             setTitle={setTitle}
             content={content}
             setContent={setContent}
+            stringifyCurrentDate={stringifyCurrentDate}
           />
         </>
       ) : (

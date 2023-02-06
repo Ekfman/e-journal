@@ -1,23 +1,29 @@
+import { useNavigate } from "react-router-dom"
+import { callApi } from "../api/utils"
 
 
-const Entry = ( {navigate, createEntry, setCreateEntry, date, setDate, title, setTitle, content, setContent }) => {
+const Entry = ( { createEntry, setCreateEntry, currentDate, date, setDate, title, setTitle, content, setContent }) => {
+    const navigate = useNavigate();
     const cancelHandler = () => {
         setCreateEntry( prev => !prev)
         navigate("/")
     }
     const onSubmit =  async (e) => {
         e.preventDefault();
-        console.log('clicked ');
-        const formData = new FormData(e.target)
-        console.log('formData :>> ', formData);
+        console.log('submitted');
         try {
-            
+            const result = await callApi({
+                method: "POST",
+                body: { eventDate: date, createDate: currentDate.currentDateServer, title, content },
+                path: "/entries/create"
+            })
+            return result;
         } catch (error) {
-            
+            console.log(error);
         }
     }
-    console.log('title :>> ', title);
-    console.log('date :>> ', date);
+    console.log(currentDate);
+    console.log(currentDate.currentDateServer);
 
     return (
         <>
