@@ -52,6 +52,7 @@ function App() {
     <div className="app">
       <nav>
         <div className="dropdown">
+          <Link to="/">Calendar</Link>
           <Link to="/entries">All Entries</Link>
           <button className="dropbtn">
             Customize
@@ -99,7 +100,6 @@ function App() {
             <AllEntries setAllEntries={setAllEntries} allEntries={allEntries} />
           }
         ></Route>
-        <Route path="/food"></Route>
       </Routes>
     </div>
   );

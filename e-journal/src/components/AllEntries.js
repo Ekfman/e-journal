@@ -1,5 +1,6 @@
 import { useEffect } from "react";
 import { callApi } from "../api/utils";
+import Entry from "./Entry";
 
 const AllEntries = ( {setAllEntries, allEntries}) => {
     const getAllEntries = async () => {
@@ -12,22 +13,28 @@ const AllEntries = ( {setAllEntries, allEntries}) => {
             entry.end = entry.createDate
             return entry;
             } )
-          console.log(entries);
+            console.log("api response:", entries);
+            setAllEntries(entries)
+            console.log("allEntries arr:", allEntries);
           return entries;
         } catch (error) {
           console.log(error)
         }
       };
-    
-      useEffect( () => {
-        setAllEntries(getAllEntries())
+      useEffect(  () => {
+        getAllEntries()
       },[]);
 
-      console.log('allEntries :>> ', allEntries);
       
       return(
         <div>
-            <h2>All your fine work!</h2>
+            <div className="entriesContainer">
+            {allEntries.map( (entry) => {
+                return (
+                    <Entry entry={entry} />
+                )
+            })}
+            </div>
         </div>
       )
 }
