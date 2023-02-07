@@ -4,6 +4,8 @@ import { callApi } from "../api/utils";
 
 const EntryById = ({ setAllEntries, allEntries }) => {
   const [renderEntry, setRenderEntry] = useState({});
+  const [editEntryButton, setEditEntryButton] = useState(false)
+
   const { id } = useParams();
   const navigate = useNavigate();
 
@@ -30,7 +32,6 @@ const EntryById = ({ setAllEntries, allEntries }) => {
       const result = await callApi({
         path: `/entries/${id}`,
       });
-      console.log(result);
       setRenderEntry(result);
       return result;
     } catch (error) {
@@ -41,6 +42,52 @@ const EntryById = ({ setAllEntries, allEntries }) => {
   useEffect(() => {
     fetchEntryById();
   }, []);
+
+  const [date, setDate] = useState("");
+  const [title, setTitle] = useState(renderEntry.title);
+  const [content, setContent] = useState(renderEntry.content);
+  //need to figure out why these initial states are not saving
+
+  const handleCancel = () => {
+    setEditEntryButton( prev => !prev)
+    navigate(`/entries/entry/${id}`)
+  }
+
+  const formatDate = () => {
+    const date = new Date(`${renderEntry.eventDate}`)
+    let year = `${date.getFullYear()}`;
+    let month = `${date.getMonth() + 1}`;
+    let day = `${date.getDate()}`;
+    if (day.length < 2) {
+      day = "0" + day;
+    }
+    if (month.length < 2) {
+      month = "0" + month;
+    }
+    const formattedDate = `${year}-${month}-${day}`
+    return formattedDate
+  }
+
+  useEffect( () => {
+    setDate(formatDate())
+  },[])
+  const onSubmit = async (e) => {
+    e.preventDefault();
+    try {
+        const result = await callApi({
+            method: "PATCH",
+            path: `/entries/${id}`,
+            body: { eventDate: date, title, content }
+            
+        })
+        if(result) window.alert("Your edits have been saved.")
+        navigate(`/entries/entry/${id}`)
+        window.location.reload(false);
+        return result;
+    } catch (error) {
+        console.log(error);
+    }
+}
 
   const deleteHandler = async ({ id }) => {
     console.log(id);
@@ -64,12 +111,16 @@ const EntryById = ({ setAllEntries, allEntries }) => {
       }
     }
   };
-
-  console.log("allEntries :>> ", allEntries);
+  const handleChange = (e) => {
+    e.preventDefault();
+   setDate(e.target.value)
+  }
 
   return (
     <div className="container">
       <div className="singleEntryContainer">
+        { !editEntryButton ? (
+            <>
         <div className="allEntryContent">
           <h2 className="entryTitle">{renderEntry.title}</h2>
           <p>{createEventDateDisplay()}</p>
@@ -78,14 +129,28 @@ const EntryById = ({ setAllEntries, allEntries }) => {
         <div className="buttons">
           <button onClick={() => navigate("/entries")}>View All Entries</button>
           <div className="editDeleteBut">
-            <button>Edit</button>
+            <button onClick={ () => setEditEntryButton( prev => !prev)}>Edit</button>
             <button onClick={() => deleteHandler({ id })}>Delete</button>
           </div>
         </div>
         <p className="createDate">Created on {createdDateDisplay()}</p>
+            </>
+        ) : (
+            <>
+            <form className="form-container">
+                <input className="date" type="date" defaultValue={formatDate()} onChange={handleChange}/>
+                <br></br>
+                <input className="title" defaultValue={renderEntry.title} onChange={e => setTitle(e.target.value)}></input>
+                <br></br>
+                <textarea className="content" rows="5" cols="60" type="text" defaultValue={renderEntry.content} onChange={e => setContent(e.target.value)}></textarea>
+            </form>
+            <button onClick={handleCancel}>Cancel</button>
+            <button onClick={onSubmit} type="submit">Submit Edits</button>
+            </>
+        ) }
       </div>
     </div>
-  );
+)
 };
 
 export default EntryById;

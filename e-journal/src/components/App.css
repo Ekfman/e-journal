@@ -90,6 +90,8 @@
   border: 2px solid black;
   display: flex;
   flex-direction: column;
+  height: auto;
+  width: auto;
   /* border-radius: 12px; */
  }
 
@@ -111,6 +113,7 @@
   font-size: large;
   background-color: rgba(255, 255, 255, 0.754);
   border: none;
+  min-height: auto;
  }
 
  .date{

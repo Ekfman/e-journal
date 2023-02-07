@@ -11,7 +11,6 @@ const CreateEntry = ( { currentDate, date, setDate, title, setTitle, content, se
         navigate("/")
     }
     const onSubmit =  async (e) => {
-        console.log("clicked");
         e.preventDefault();
         try {
             if(!date){
