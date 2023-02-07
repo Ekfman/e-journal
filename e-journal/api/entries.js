@@ -1,5 +1,5 @@
 const express = require("express");
-const { addEntry, getAllEntries, getEntryById } = require("../db/models/entries");
+const { addEntry, getAllEntries, getEntryById, updateEntry, deleteEntry } = require("../db/models/entries");
 const entriesRouter = express.Router();
 
 entriesRouter.get("/", async (req, res, next) => {
@@ -32,5 +32,30 @@ entriesRouter.post("/create", async (req, res, next) => {
         next({ name, message })
     }
 });
+
+// entriesRouter.patch("/:id", async (req, res, next) => {
+//     const { id } = req.params;
+//     console.log('id :>> ', id);
+//     const {  createDate, eventDate, title, content } = req.body;
+//     console.log('req.body :>> ', req.body);
+//     try {
+//         const update = await updateEntry ( {id, createDate, eventDate, title, content })
+//         console.log('update :>> ', update);
+//         res.send(update)
+//     } catch ({ name, message }) {
+//         next({ name, message })
+//     }
+// })
+
+entriesRouter.delete("/:id", async (req, res, next)=> {
+    const { id } = req.params;
+    console.log('id :>> ', id);
+    try {
+        const deletedEntry = await deleteEntry(id)
+        res.send(deletedEntry)
+    } catch ({ name, message }) {
+        next({ name, message });
+    }
+})
 
 module.exports = entriesRouter;

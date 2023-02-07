@@ -25,7 +25,7 @@ const CalendarView = ({ allEntries, date, setDate}) => {
 
     const handleEntryClick = (entry) => {
       const entryId = entry.id
-        navigate(`/entries/${entryId}`)
+        navigate(`/entries/entry/${entryId}`)
       };
     
       const handleSelectSlot = (date) => {

@@ -40,7 +40,17 @@ function App() {
   const [date, setDate] = useState("");
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
-  const [allEntries, setAllEntries] = useState([]);
+  const [allEntries, setAllEntries] = useState([])
+  // const [allEntries, setAllEntries] = useState(window.localStorage.getItem("allEntries" || []));
+  
+    useEffect( () => {
+      window.localStorage.setItem("allEntries", JSON.stringify(allEntries))
+    }, [allEntries])
+
+    useEffect( () => {
+      const data = window.localStorage.getItem("allEntries")
+      if(data) setAllEntries(JSON.parse(data))
+    }, [])
 
   const getAllEntries = async () => {
     try {
@@ -52,21 +62,21 @@ function App() {
         entry.end = entry.eventDate
         return entry;
         } )
-        console.log("api response:", entries);
         setAllEntries(entries)
-        console.log("allEntries arr:", allEntries);
       return entries;
     } catch (error) {
       console.log(error)
     }
   };
+
+  console.log('allEntries :>> ', allEntries);
   useEffect(  () => {
     getAllEntries()
   },[]);
+
   useEffect(() => {
     setCurrentDate(stringifyCurrentDate());
   }, []);
-  console.log(currentDate);
 
   return (
     <div className="app">
@@ -125,10 +135,10 @@ function App() {
         <Route
           path="/entries"
           element={
-            <AllEntries setAllEntries={setAllEntries} allEntries={allEntries} />
+            <AllEntries setAllEntries={setAllEntries} allEntries={allEntries} getAllEntries={getAllEntries}/>
           }
         ></Route>
-        <Route path="/entries/entry/:id" element={<EntryById />}></Route>
+        <Route path="/entries/entry/:id" element={<EntryById allEntries={allEntries} setAllEntries={setAllEntries}/>}></Route>
       </Routes>
     </div>
   );

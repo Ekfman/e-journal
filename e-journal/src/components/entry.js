@@ -26,9 +26,9 @@ const Entry = ({ entry }) => {
      }
 
      const handleReadMore = ( { id }) => {
-        console.log(id);
         navigate(`entry/${id}`)
      }
+     
 
   return (
     <div className="singleEntryContainer">
@@ -37,8 +37,8 @@ const Entry = ({ entry }) => {
       <p>{createEventDateDisplay()}</p>
       <p>{entry.content}</p>
       </div>
-      <div className="buttons">
-        <button onClick={ () => handleReadMore( { id: entry.id})}>Read More</button>
+      <div className="readMoreButton">
+        <button  onClick={ () => handleReadMore( { id: entry.id})}>Read More</button>
       </div>
       <p className="createDate">Created on {createdDateDisplay()}</p>
     </div>

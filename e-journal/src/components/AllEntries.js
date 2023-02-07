@@ -1,11 +1,10 @@
 import { useEffect } from "react";
-import { callApi } from "../api/utils";
 import Entry from "./Entry";
 
-const AllEntries = ( {setAllEntries, allEntries}) => {
+const AllEntries = ( {getAllEntries, setAllEntries, allEntries}) => {
       
       return(
-        <div>
+        <div className="container">
             <div className="entriesContainer">
             {allEntries.map( (entry) => {
                 return (
