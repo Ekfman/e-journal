@@ -1,6 +1,5 @@
 import { useNavigate } from "react-router-dom"
 import { callApi } from "../api/utils"
-import { useEffect } from "react";
 
 
 const CreateEntry = ( { currentDate, date, setDate, title, setTitle, content, setContent, setAllEntries, allEntries }) => {

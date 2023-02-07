@@ -5,6 +5,7 @@ import CreateEntry from "./CreateEntry";
 import { useEffect, useState } from "react";
 import AllEntries from "./AllEntries";
 import CalendarView from "./CalendarView";
+import { callApi } from "../api/utils";
 
 
 const stringifyCurrentDate = () => {
@@ -31,6 +32,8 @@ const stringifyCurrentDate = () => {
 };
 
 
+
+
 function App() {
   const [currentDate, setCurrentDate] = useState({});
   const [date, setDate] = useState("");
@@ -38,6 +41,27 @@ function App() {
   const [content, setContent] = useState("");
   const [allEntries, setAllEntries] = useState([]);
 
+  const getAllEntries = async () => {
+    try {
+      let entries = await callApi({
+        path: "/entries"
+      })
+      entries.map( entry => {  
+        entry.start = entry.eventDate
+        entry.end = entry.eventDate
+        return entry;
+        } )
+        console.log("api response:", entries);
+        setAllEntries(entries)
+        console.log("allEntries arr:", allEntries);
+      return entries;
+    } catch (error) {
+      console.log(error)
+    }
+  };
+  useEffect(  () => {
+    getAllEntries()
+  },[]);
   useEffect(() => {
     setCurrentDate(stringifyCurrentDate());
   }, []);

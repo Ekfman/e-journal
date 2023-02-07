@@ -19,30 +19,10 @@ const locales = {
     locales,
   });
 
-  const events = [
-    {
-      title: "New Dog",
-      description: "Got a new puppy",
-      content: "today I got a labradoodle. Her name is Sally",
-      start: new Date("2023", "02", "03"),
-      end: new Date("2023", "02", "03"),
-    },
-    {
-      title: "Galentine's Day Drama",
-      content: "It all started with periods",
-      start: new Date("2023", "02", "01"),
-      end: new Date("2023", "02", "01"),
-    },
-    {
-      title: "Weird",
-      content: "It all started with a kiss",
-      start: "2023-02-04",
-      end: "2023-02-04",
-    },
-  ];
 
 const CalendarView = ({ allEntries, date, setDate}) => {
     const navigate = useNavigate();
+
     const handleEntryClick = () => {
         console.log("clicked!");
       };

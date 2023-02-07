@@ -11,6 +11,18 @@ async function getAllEntries () {
     }
 }
 
+async function getEntryById (id) {
+    try {
+        const { rows: [entry] } = await client.query(`
+        SELECT * FROM entries
+        WHERE id = $1
+        `, [id])
+        return entry;
+    } catch (error) {
+        console.log(error);
+    }
+}
+
 async function addEntry (createDate, eventDate, title, content) {
     try {
         const { rows: [entry] } = await client.query(
@@ -31,4 +43,5 @@ async function addEntry (createDate, eventDate, title, content) {
 module.exports = {
     getAllEntries,
     addEntry,
+    getEntryById
 }
