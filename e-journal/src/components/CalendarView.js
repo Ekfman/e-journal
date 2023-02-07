@@ -23,8 +23,9 @@ const locales = {
 const CalendarView = ({ allEntries, date, setDate}) => {
     const navigate = useNavigate();
 
-    const handleEntryClick = () => {
-        console.log("clicked!");
+    const handleEntryClick = (entry) => {
+      const entryId = entry.id
+        navigate(`/entries/${entryId}`)
       };
     
       const handleSelectSlot = (date) => {

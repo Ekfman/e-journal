@@ -1,7 +1,12 @@
+// import { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+
+// import EntryById from "./EntryById";
 
 const Entry = ({ entry }) => {
+    const navigate = useNavigate();
+
     const createdDateDisplay = () => {
-        console.log('createDate :>> ', entry.createDate);
         const formatDate = new Date(`${entry.createDate}`);
         let year = `${formatDate.getFullYear()}`;
         let month = `${formatDate.getMonth() + 1}`;
@@ -10,26 +15,30 @@ const Entry = ({ entry }) => {
         const displayDate = `${month}/${day}/${year}`;
         return displayDate
     }
-  
-        console.log('eventDate :>> ', entry.eventDate);
-        const formatDate = new Date(`${entry.eventDate}`);
-        console.log(formatDate);
-        let year = `${formatDate.getFullYear()}`;
-        let month = `${formatDate.getMonth() + 1}`;
-        let day = `${formatDate.getDate()}`;
-        
-        const displayDate = `${month}/${day}/${year}`;
+     const createEventDateDisplay = () => {
+         const formatDate = new Date(`${entry.eventDate}`);
+         let year = `${formatDate.getFullYear()}`;
+         let month = `${formatDate.getMonth() + 1}`;
+         let day = `${formatDate.getDate()}`;
+         
+         const displayDate = `${month}/${day}/${year}`;
+        return displayDate;
+     }
 
+     const handleReadMore = ( { id }) => {
+        console.log(id);
+        navigate(`entry/${id}`)
+     }
 
   return (
     <div className="singleEntryContainer">
       <div className="entryContent">
       <h2 className="entryTitle">{entry.title.toUpperCase()}</h2>
-      <p>{displayDate}</p>
+      <p>{createEventDateDisplay()}</p>
       <p>{entry.content}</p>
       </div>
       <div className="buttons">
-      <button>Read more</button>
+        <button onClick={ () => handleReadMore( { id: entry.id})}>Read More</button>
       </div>
       <p className="createDate">Created on {createdDateDisplay()}</p>
     </div>

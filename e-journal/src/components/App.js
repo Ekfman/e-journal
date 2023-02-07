@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 import AllEntries from "./AllEntries";
 import CalendarView from "./CalendarView";
 import { callApi } from "../api/utils";
+import EntryById from "./EntryById";
 
 
 const stringifyCurrentDate = () => {
@@ -127,6 +128,7 @@ function App() {
             <AllEntries setAllEntries={setAllEntries} allEntries={allEntries} />
           }
         ></Route>
+        <Route path="/entries/entry/:id" element={<EntryById />}></Route>
       </Routes>
     </div>
   );
