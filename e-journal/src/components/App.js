@@ -1,6 +1,6 @@
 import "./App.css";
 // import { useState } from 'react';
-import { useNavigate, Link, Routes, Route } from "react-router-dom";
+import { Link, Routes, Route } from "react-router-dom";
 import CreateEntry from "./CreateEntry";
 import { useEffect, useState } from "react";
 import AllEntries from "./AllEntries";
@@ -32,7 +32,6 @@ const stringifyCurrentDate = () => {
 
 
 function App() {
-  const navigate = useNavigate();
   const [currentDate, setCurrentDate] = useState({});
   const [date, setDate] = useState("");
   const [title, setTitle] = useState("");
@@ -44,16 +43,23 @@ function App() {
   }, []);
   console.log(currentDate);
 
-  const newEntryHandler = () => {
-    navigate("/newEntry");
-  };
-
   return (
     <div className="app">
-      <nav>
-        <div className="dropdown">
-          <Link to="/">Calendar</Link>
-          <Link to="/entries">All Entries</Link>
+      <nav className="navbarContainer">
+        <div className="logoContainer">
+        <h1 className="logo">CONFIDANT</h1>
+        </div>
+        <ul className="navbar">
+          <li>
+          <Link className="navbarLinks" to="/">Calendar</Link>
+            </li>
+            <li>
+              <Link className="navbarLinks" to="/newEntry">Create Entry</Link>
+            </li>
+            <li>
+          <Link className="navbarLinks" to="/entries">All Entries</Link>
+            </li>
+            {/* <li>
           <button className="dropbtn">
             Customize
             <i className="fa fa-caret-down"></i>
@@ -63,13 +69,10 @@ function App() {
             <button>Sleek</button>
             <button>Clean</button>
           </div>
-        </div>
+
+            </li> */}
+        </ul>
       </nav>
-      <>
-        <button className="newEntryButton" onClick={newEntryHandler}>
-          Create Entry
-        </button>
-      </>
       <Routes>
         <Route
           path="/"

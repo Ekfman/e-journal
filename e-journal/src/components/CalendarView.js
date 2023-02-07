@@ -69,19 +69,21 @@ const CalendarView = ({ allEntries, date, setDate}) => {
           navigate("/newEntry");
         }
       };
-    
+    console.log(allEntries);
     return(
+      <div className="calendarView">
         <div className="calendar-container">
             <Calendar localizer={localizer}
               style={{ height: 500, margin: "50px" }}
               views={["month", "day"]}
-              events={events}
+              events={allEntries}
               startAccessor="start"
               endAccessor="end"
               selectable={true}
               onSelectEvent={handleEntryClick}
               onSelectSlot={handleSelectSlot}/>
         </div>
+      </div>
     )
 }
 

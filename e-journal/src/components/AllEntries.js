@@ -9,8 +9,8 @@ const AllEntries = ( {setAllEntries, allEntries}) => {
             path: "/entries"
           })
           entries.map( entry => {  
-            entry.start = entry.createDate
-            entry.end = entry.createDate
+            entry.start = entry.eventDate
+            entry.end = entry.eventDate
             return entry;
             } )
             console.log("api response:", entries);
