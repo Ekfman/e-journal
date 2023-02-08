@@ -1,4 +1,3 @@
-import { useEffect } from "react";
 import Entry from "./Entry";
 
 const AllEntries = ( {getAllEntries, setAllEntries, allEntries}) => {
@@ -6,11 +5,17 @@ const AllEntries = ( {getAllEntries, setAllEntries, allEntries}) => {
       return(
         <div className="container">
             <div className="entriesContainer">
-            {allEntries.map( (entry) => {
-                return (
-                    <Entry key={entry.id} entry={entry} />
-                )
-            })}
+                {allEntries ? (
+                    allEntries.map( (entry) => {
+                        return (
+                            <Entry key={entry.id} entry={entry} />
+                        )
+                    })
+                ) : (
+                    <div>
+                        You haven't written any entries yet!
+                    </div>
+                ) }
             </div>
         </div>
       )
