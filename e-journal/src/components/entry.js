@@ -33,7 +33,7 @@ const Entry = ({ entry }) => {
   return (
     <div className="singleEntryContainer">
       <div className="entryContent">
-      <h2 className="entryTitle">{entry.title.toUpperCase()}</h2>
+      <h2 className="entryTitle">{entry.title}</h2>
       <p>{createEventDateDisplay()}</p>
       <p>{entry.content}</p>
       </div>

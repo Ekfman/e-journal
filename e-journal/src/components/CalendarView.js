@@ -1,11 +1,11 @@
 import { Calendar, dateFnsLocalizer } from "react-big-calendar";
-
 import "react-big-calendar/lib/css/react-big-calendar.css";
 import format from "date-fns/format";
 import parse from "date-fns/parse";
 import startOfWeek from "date-fns/startOfWeek";
 import getDay from "date-fns/getDay";
 import { useNavigate } from "react-router-dom";
+import { MonthView } from "react-calendar";
 
 const locales = {
     "en-US": require("date-fns/locale/en-US"),
@@ -40,7 +40,6 @@ const CalendarView = ({ allEntries, date, setDate}) => {
         }
     
         let clickedDay = `${year}-${month}-${day}`;
-        // let clickedDayFormatted = `${day}/${month}/${year}`
         console.log(clickedDay);
         let prompt = window.confirm(
           `Do you want to create an entry for ${month}/${day}/${year}`
@@ -56,7 +55,7 @@ const CalendarView = ({ allEntries, date, setDate}) => {
         <div className="calendar-container">
             <Calendar localizer={localizer}
               style={{ height: 500, margin: "50px" }}
-              views={["month", "day"]}
+              views={MonthView}
               events={allEntries}
               startAccessor="start"
               endAccessor="end"

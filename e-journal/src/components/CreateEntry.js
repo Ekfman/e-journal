@@ -54,17 +54,23 @@ const CreateEntry = ( { currentDate, date, setDate, title, setTitle, content, se
 
    
     return (
-        <>
+        <div className="container">
+        <div className="singleEntryContainer">
             <form className="form-container">
                 <input className="date" type="date" value={date} onChange={e => setDate(e.target.value)}/>
                 <br></br>
                 <input className="title" placeholder="Title" onChange={e => setTitle(e.target.value)}></input>
                 <br></br>
-                <textarea className="content" rows="5" cols="60" type="text" placeholder="What happened?! Tell me." onChange={e => setContent(e.target.value)}></textarea>
+                <textarea className="createContent" rows="5" cols="60" type="text" placeholder="What happened?! Tell me." onChange={e => setContent(e.target.value)}></textarea>
             </form>
+            <div className="cancelSubmitButtons">
             <button onClick={cancelHandler}>Cancel</button>
             <button onClick={onSubmit} type="submit">Submit Entry</button>
-        </>
+            </div>
+
+        </div>
+
+        </div>
     )
 }
 

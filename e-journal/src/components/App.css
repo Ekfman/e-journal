@@ -20,7 +20,7 @@
 }
 
 .calendar-container{
-  margin-top: 20px;
+  margin-top: 50px;
   background-color: rgba(255, 255, 255, 0.436);
   width: 80%;
 }
@@ -55,18 +55,25 @@
 }
 
  .rbc-header{
-  height: 50px;
-  padding-top: 15px;
-  color: white;  
+  height: 30px;
+  padding-top: 8px !important;
+  color: rgba(73, 73, 73, 0.806);
+  background-color: rgba(247, 247, 247, 0.346);
   font-weight: bold;
-
  }
+
+ .rbc-toolbar button{
+  color: rgb(78, 78, 78) !important;
+  font-weight: 400;
+ }
+
 
  .rbc-toolbar-label{
   color: white;
   font-weight: bold;
   font-size: xx-large;
   background-color: rgba(255, 192, 203, 0.561);
+  text-align: right !important;
  }
 
  .rbc-month-view{
@@ -75,15 +82,29 @@
   background-color: rgba(255, 255, 255, 0.484); */
  }
  .rbc-today {
-  background-color: rgba(255, 192, 203, 0.308);
+  background-color: rgba(255, 192, 203, 0.308) !important;
  }
 
  .rbc-event{
-  background-color: #bed5d5;
+  background-color: #88b9cf !important;
+ }
+
+ .rbc-day-bg{
+  border: 2px solid rgba(255, 255, 255, 0.277);
+  background-color: rgba(247, 247, 247, 0.346);
+ }
+
+ .rbc-day-bg:hover{
+  background-color: rgba(173, 173, 173, 0.346) !important;
  }
 
  .rbc-off-range-bg{
-  background-color: none !important;
+  background-color: rgba(247, 247, 247, 0.346) !important;
+ }
+
+ .rbc-button-link{
+  color: rgba(73, 73, 73, 0.806) !important;
+  font-weight: bold;
  }
 
  .form-container{
@@ -115,6 +136,12 @@
   border: none;
   min-height: auto;
  }
+ .createContent{
+  font-size: large;
+  background-color: rgba(255, 255, 255, 0.754);
+  border: none;
+  min-height: 500px;
+ }
 
  .date{
   font-size: large;
@@ -126,25 +153,31 @@
  .navbarContainer{
    display: flex;
    justify-content: space-between;
+  background-color: rgba(255, 255, 255, 0.304);
   }
   
   .logo{
    color: white;
-   font-size: 35px;
-   margin-left: 20px;
+   font-size: 25px;
+   margin-left: 80px;
+}
+.jingle{
+  color: white;
+  font-size: 18px;
 }
 
  .navbar{
   display: flex;
   list-style: none;
-  margin-right: 20px;
+  margin-right: 80px;
+  align-items: center;
  }
 
 .navbarLinks{
   color: white;
   margin: 3px;
   text-decoration: none;
-  border-left: white 2px solid;
+  /* border-left: white 2px solid; */
   padding-left: 8px;
   padding-right: 4px;
 }
@@ -207,8 +240,9 @@
   flex-direction: column;
   align-items: center;
   width: 1000px;
-  height: 1000px;
+  height: 900px;
   overflow-y: scroll !important;
+  margin-top: 20px;
 }
 
 .singleEntryContainer{
@@ -220,7 +254,7 @@
   display: flex;
   flex-direction: column;
   width: 70%;
- margin-top: 50px;
+ margin-top: 20px;
 }
 
 .singleEntryContainer button{
@@ -272,7 +306,7 @@
 
 .createDate{
   text-align: right;
-  font-weight:500;
+  font-weight:540;
 }
 
 .buttons{
@@ -280,9 +314,17 @@
   justify-content: space-between;
 }
 
+.buttons button{
+  font-weight: 800;
+}
+
 .readMoreButton{
   justify-content: center;
   display: flex;
+}
+
+.readMoreButton button{
+  font-weight: 800;
 }
 
 .editDeleteBut{
@@ -296,3 +338,12 @@
 
 }
 
+.cancelSubmitButtons{
+  display: flex;
+  justify-content: space-between;
+  margin-top: 12px;
+}
+
+.cancelSubmitButtons button{
+  font-weight: 800;
+}

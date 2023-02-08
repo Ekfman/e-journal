@@ -144,8 +144,10 @@ const EntryById = ({ setAllEntries, allEntries }) => {
                 <br></br>
                 <textarea className="content" rows="5" cols="60" type="text" defaultValue={renderEntry.content} onChange={e => setContent(e.target.value)}></textarea>
             </form>
+            <div className="cancelSubmitButtons">
             <button onClick={handleCancel}>Cancel</button>
             <button onClick={onSubmit} type="submit">Submit Edits</button>
+            </div>
             </>
         ) }
       </div>

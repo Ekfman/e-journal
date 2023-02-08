@@ -82,7 +82,7 @@ function App() {
     <div className="app">
       <nav className="navbarContainer">
         <div className="logoContainer">
-        <h1 className="logo">CONFIDANT</h1>
+        <h1 className="logo">CONFIDANT. <span className="jingle">a shoulder to type on</span></h1>
         </div>
         <ul className="navbar">
           <li>
