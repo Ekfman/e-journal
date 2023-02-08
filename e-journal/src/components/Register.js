@@ -20,7 +20,7 @@ const Register = ({ setToken }) => {
         });
         if (result) window.alert("You've successfully created an account!");
         setToken(result.token);
-        navigate("/");
+        navigate("/calendar");
       }
     } catch (error) {
       console.log(error);
