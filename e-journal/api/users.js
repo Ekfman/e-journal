@@ -1,12 +1,11 @@
 const express = require("express");
 const jwt = require("jsonwebtoken");
-const { createUser, getUserByEmail } = require("../db/models/users");
+const { createUser, getUserByEmail, validateAndGetUser } = require("../db/models/user");
 
 const usersRouter = express.Router();
 
 usersRouter.post("/register", async (req, res, next) => {
     const { email, password } = req.body;
-    console.log(req.body);
     try {
         const checkUser = await getUserByEmail(email);
         if (checkUser) {
@@ -38,5 +37,37 @@ usersRouter.post("/register", async (req, res, next) => {
         next({ name, message })
     }
 })
+
+usersRouter.post("/login", async (req, res, next) => {
+  try {
+    const { email, password } = req.body;
+
+    if (!email || !password) {
+      next({
+        name: "MissingCredentialsError",
+        message: "Please supply both an email and a password",
+      });
+    }
+
+    const user = await validateAndGetUser({ email, password });
+
+    if (user) {
+      const token = jwt.sign(
+        {
+          id: user.id,
+          email: user.email,
+        },
+        process.env.JWT_SECRET
+      );
+      res.send({
+        message: "you're logged in!",
+        token,
+        user,
+      });
+    }
+  } catch ({ name, message }) {
+    next({ name, message });
+  }
+});
 
 module.exports = usersRouter

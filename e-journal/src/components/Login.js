@@ -1,41 +1,38 @@
+import { callApi } from "../api/utils";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { callApi } from "../api/utils";
 
-const Register = ({ setToken }) => {
+const Login = ({ setToken }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
+
   const submitHandler = async (e) => {
     e.preventDefault();
     try {
-      if (!email) window.alert("Must enter an a valid email address");
-      if (!password) window.alert("Must enter a password");
-      if (password.length < 8) window.alert("password length too short");
-      if (password && email) {
-        const result = await callApi({
-          method: "POST",
-          body: { email, password },
-          path: "/users/register",
-        });
-        if (result) window.alert("You've successfully created an account!");
-        setToken(result.token);
-        navigate("/");
-      }
+      const result = await callApi({
+        method: "POST",
+        body: { email, password },
+        path: "/users/login",
+      });
+      if (!result) window.alert("Incorrect email or password.");
+      setToken(result.token);
+      localStorage.setItem("token", result.token);
+      navigate("/calendar");
+      return result;
     } catch (error) {
       console.log(error);
     }
   };
-
   return (
     <div className="container">
       <div className="registerContainer">
         <h2 className="registerHeader">
-          <center>Create your account</center>
+          <center>Sign in to your account</center>
         </h2>
         <div className="regFormContainer">
           <form className="registerForm">
-            <label className="registerLabels">Enter Email:</label>
+            <label className="registerLabels">Email:</label>
             <input
               className="inputField"
               type="email"
@@ -44,24 +41,19 @@ const Register = ({ setToken }) => {
             ></input>
             <br></br>
             <br></br>
-            <label className="registerLabels">
-              Create Password:
-              <div className="passwordNote">
-                (must be at least 8 characters)
-              </div>
-            </label>
+            <label className="registerLabels">Password:</label>
             <input
               className="inputField"
               type="password"
-              onChange={(e) => setPassword(e.target.value)}
               required
+              onChange={(e) => setPassword(e.target.value)}
             ></input>
             <div className="buttonContainer">
               <button className="signupButton" onClick={submitHandler}>
-                Create Account
+                Sign in
               </button>
               <p>
-                Already registered? <a href="/login">Sign in!</a>
+                Don't have an account? <a href="/register">Sign up!</a>
               </p>
             </div>
           </form>
@@ -71,4 +63,4 @@ const Register = ({ setToken }) => {
   );
 };
 
-export default Register;
+export default Login;

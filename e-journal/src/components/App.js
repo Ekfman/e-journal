@@ -1,5 +1,5 @@
 import "./App.css";
-import { Link, Routes, Route } from "react-router-dom";
+import { Link, Routes, Route, useNavigate } from "react-router-dom";
 import CreateEntry from "./CreateEntry";
 import { useEffect, useState } from "react";
 import AllEntries from "./AllEntries";
@@ -7,6 +7,7 @@ import CalendarView from "./CalendarView";
 import { callApi } from "../api/utils";
 import EntryById from "./EntryById";
 import Register from "./Register";
+import Login from "./Login";
 
 const stringifyCurrentDate = () => {
   let today = new Date();
@@ -36,6 +37,7 @@ function App() {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const [allEntries, setAllEntries] = useState([]);
+  const navigate = useNavigate();
 
   const [token, setToken] = useState(
     window.localStorage.getItem("token") || ""
@@ -78,6 +80,12 @@ function App() {
     setCurrentDate(stringifyCurrentDate());
   }, []);
 
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    localStorage.removeItem("allEntries"); //this doesn't work for some reason
+    navigate("/");
+    window.location.reload(false);
+  };
   return (
     <div className="app">
       <nav className="navbarContainer">
@@ -95,7 +103,7 @@ function App() {
                 </Link>
               </li>
               <li>
-                <Link className="navbarLinks" to="/login">
+                <Link className="navbarLinks" to="/">
                   Login
                 </Link>
               </li>
@@ -103,7 +111,7 @@ function App() {
           ) : (
             <>
               <li>
-                <Link className="navbarLinks" to="/">
+                <Link className="navbarLinks" to="/calendar">
                   Calendar
                 </Link>
               </li>
@@ -118,7 +126,13 @@ function App() {
                 </Link>
               </li>
               <li>
-                <Link className="navbarLinks" to="/login" onClick={ () => localStorage.removeItem("token")}>Logout</Link>
+                <Link
+                  className="navbarLinks"
+                  to="/login"
+                  onClick={handleLogout}
+                >
+                  Logout
+                </Link>
               </li>
             </>
           )}
@@ -137,13 +151,14 @@ function App() {
       </nav>
       <Routes>
         <Route
-          path="/"
+          path="/calendar"
           element={<CalendarView allEntries={allEntries} setDate={setDate} />}
         ></Route>
         <Route
           path="/register"
           element={<Register setToken={setToken} />}
         ></Route>
+        <Route path="/" element={<Login setToken={setToken} />}></Route>
         <Route
           path="/newEntry"
           element={
