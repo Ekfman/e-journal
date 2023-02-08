@@ -1,19 +1,50 @@
-const Register = () => {
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { callApi } from "../api/utils";
+
+const Register = ({setToken}) => {
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+    const navigate = useNavigate();
+    const submitHandler = async (e) => {
+        e.preventDefault();
+        try {
+            if(!email) window.alert("Must enter an a valid email address")
+            if(!password) window.alert("Must enter a password")
+            if(password.length < 8) window.alert("password length too short")
+            if(password && email){
+                const result = await callApi({
+                    method: "POST",
+                    body: { email, password },
+                    path: "/users/register",
+                  });
+                  console.log(result);
+                  setToken(result.token);
+                  navigate("/")
+            }
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
     return(
         <div className="container">
             <div className="registerContainer">
                 <h2 className="registerHeader"><center>Create your account</center></h2>
                 <div className="regFormContainer">
                 <form className="registerForm">
-                    <label className="registerLabels">Enter Email:</label>
+                    <label className="registerLabels" onChange={ (e) => setEmail(e.target.value)}>Enter Email:</label>
                     <input className="inputField" type="email" required></input>
                     <br></br>
                     <br></br>
-                    <label className="registerLabels">Create Password:</label>
-                    <input className="inputField" type="password" required></input>
+                    <label className="registerLabels">Create Password: <div className="passwordNote">(must be at least 8 characters)</div></label>
+                    <input className="inputField" type="password" required onChange={ (e) => setPassword(e.target.value)}></input>
+                    <div className="buttonContainer">
+                    <button className="signupButton" onClick={submitHandler}>Create Account</button>
+                    <p>Already registered? <a href="/login">Sign in!</a></p>
+                    </div>
                 </form>
                 </div>
-                <p><center>Already registered? <a href="/login">Sign in!</a></center></p>
             </div>
 
         </div>

@@ -37,6 +37,13 @@ function App() {
   const [content, setContent] = useState("");
   const [allEntries, setAllEntries] = useState([]);
 
+  const [token, setToken] = useState(
+    window.localStorage.getItem("token") || ""
+  );
+  useEffect(() => {
+    window.localStorage.setItem("token", token);
+  }, [token]);
+
   useEffect(() => {
     window.localStorage.setItem("allEntries", JSON.stringify(allEntries));
   }, [allEntries]);
@@ -80,24 +87,41 @@ function App() {
           </h1>
         </div>
         <ul className="navbar">
-          <li>
-            <Link className="navbarLinks" to="/register">Register</Link>
-          </li>
-          <li>
-            <Link className="navbarLinks" to="/">
-              Calendar
-            </Link>
-          </li>
-          <li>
-            <Link className="navbarLinks" to="/newEntry">
-              Create Entry
-            </Link>
-          </li>
-          <li>
-            <Link className="navbarLinks" to="/entries">
-              All Entries
-            </Link>
-          </li>
+          {!token ? (
+            <>
+              <li>
+                <Link className="navbarLinks" to="/register">
+                  Register
+                </Link>
+              </li>
+              <li>
+                <Link className="navbarLinks" to="/login">
+                  Login
+                </Link>
+              </li>
+            </>
+          ) : (
+            <>
+              <li>
+                <Link className="navbarLinks" to="/">
+                  Calendar
+                </Link>
+              </li>
+              <li>
+                <Link className="navbarLinks" to="/newEntry">
+                  Create Entry
+                </Link>
+              </li>
+              <li>
+                <Link className="navbarLinks" to="/entries">
+                  All Entries
+                </Link>
+              </li>
+              <li>
+                <Link className="navbarLinks" to="/login" onClick={ () => localStorage.removeItem("token")}>Logout</Link>
+              </li>
+            </>
+          )}
           {/* <li>
           <button className="dropbtn">
             Customize
@@ -116,7 +140,10 @@ function App() {
           path="/"
           element={<CalendarView allEntries={allEntries} setDate={setDate} />}
         ></Route>
-        <Route path="/register" element={<Register />}></Route>
+        <Route
+          path="/register"
+          element={<Register setToken={setToken} />}
+        ></Route>
         <Route
           path="/newEntry"
           element={

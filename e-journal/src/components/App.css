@@ -129,6 +129,20 @@
   height: 30px;
 }
 
+.passwordNote{
+  color: rgba(67, 67, 67, 0.499);
+  font-size: 15px;
+  margin-bottom: 5px;
+}
+
+.buttonContainer{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 12px;
+  margin-bottom: 20px;
+}
+
 .registerLabels{
   text-align: left;
 }
@@ -378,4 +392,26 @@
 .regFormContainer{
   display: flex;
   justify-content: center;
+}
+
+.signupButton{
+  width: 150px;
+  justify-content: right;
+  border-radius: 15px;
+  padding: 8px 0px 8px 0px;
+  background-color: rgba(216, 216, 216, 0.728);
+  font-weight: 700;
+  color: white;
+  border: 2px solid white;
+  margin-top: 20px;
+  font-size: medium;
+}
+
+.signupButton:hover{
+  background-color: rgba(178, 178, 178, 0.728);
+}
+
+.registerHeader{
+  margin-bottom: 40px;
+  color: white;
 }
