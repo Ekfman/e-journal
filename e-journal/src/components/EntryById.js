@@ -4,7 +4,7 @@ import { callApi } from "../api/utils";
 
 const EntryById = ({ setAllEntries, allEntries }) => {
   const [renderEntry, setRenderEntry] = useState({});
-  const [editEntryButton, setEditEntryButton] = useState(false)
+  const [editEntryButton, setEditEntryButton] = useState(false);
 
   const { id } = useParams();
   const navigate = useNavigate();
@@ -49,12 +49,12 @@ const EntryById = ({ setAllEntries, allEntries }) => {
   //need to figure out why these initial states are not saving
 
   const handleCancel = () => {
-    setEditEntryButton( prev => !prev)
-    navigate(`/entries/entry/${id}`)
-  }
+    setEditEntryButton((prev) => !prev);
+    navigate(`/entries/entry/${id}`);
+  };
 
   const formatDate = () => {
-    const date = new Date(`${renderEntry.eventDate}`)
+    const date = new Date(`${renderEntry.eventDate}`);
     let year = `${date.getFullYear()}`;
     let month = `${date.getMonth() + 1}`;
     let day = `${date.getDate()}`;
@@ -64,33 +64,31 @@ const EntryById = ({ setAllEntries, allEntries }) => {
     if (month.length < 2) {
       month = "0" + month;
     }
-    const formattedDate = `${year}-${month}-${day}`
-    return formattedDate
-  }
+    const formattedDate = `${year}-${month}-${day}`;
+    return formattedDate;
+  };
 
-  useEffect( () => {
-    setDate(formatDate())
-  },[])
+  useEffect(() => {
+    setDate(formatDate());
+  }, []);
   const onSubmit = async (e) => {
     e.preventDefault();
     try {
-        const result = await callApi({
-            method: "PATCH",
-            path: `/entries/${id}`,
-            body: { eventDate: date, title, content }
-            
-        })
-        if(result) window.alert("Your edits have been saved.")
-        navigate(`/entries/entry/${id}`)
-        window.location.reload(false);
-        return result;
+      const result = await callApi({
+        method: "PATCH",
+        path: `/entries/${id}`,
+        body: { eventDate: date, title, content },
+      });
+      if (result) window.alert("Your edits have been saved.");
+      navigate(`/entries/entry/${id}`);
+      window.location.reload(false);
+      return result;
     } catch (error) {
-        console.log(error);
+      console.log(error);
     }
-}
+  };
 
   const deleteHandler = async ({ id }) => {
-    console.log(id);
     let prompt = window.confirm(
       "Are you sure you want to delete this entry? This cannot be undone."
     );
@@ -100,10 +98,9 @@ const EntryById = ({ setAllEntries, allEntries }) => {
           method: "DELETE",
           path: `/entries/${id}`,
         });
-        console.log("deletedEntry :>> ", result);
         setAllEntries((prev) => prev.filter((e) => e.id !== id));
         navigate("/entries");
-        if(result) window.alert("You entry has been successfully deleted.")
+        if (result) window.alert("You entry has been successfully deleted.");
         window.location.reload(false);
         return allEntries;
       } catch (error) {
@@ -113,46 +110,68 @@ const EntryById = ({ setAllEntries, allEntries }) => {
   };
   const handleChange = (e) => {
     e.preventDefault();
-   setDate(e.target.value)
-  }
+    setDate(e.target.value);
+  };
 
   return (
     <div className="container">
       <div className="singleEntryContainer">
-        { !editEntryButton ? (
-            <>
-        <div className="allEntryContent">
-          <h2 className="entryTitle">{renderEntry.title}</h2>
-          <p>{createEventDateDisplay()}</p>
-          <p>{renderEntry.content}</p>
-        </div>
-        <div className="buttons">
-          <button onClick={() => navigate("/entries")}>View All Entries</button>
-          <div className="editDeleteBut">
-            <button onClick={ () => setEditEntryButton( prev => !prev)}>Edit</button>
-            <button onClick={() => deleteHandler({ id })}>Delete</button>
-          </div>
-        </div>
-        <p className="createDate">Created on {createdDateDisplay()}</p>
-            </>
+        {!editEntryButton ? (
+          <>
+            <div className="allEntryContent">
+              <h2 className="entryTitle">{renderEntry.title}</h2>
+              <p>{createEventDateDisplay()}</p>
+              <p>{renderEntry.content}</p>
+            </div>
+            <div className="buttons">
+              <button onClick={() => navigate("/entries")}>
+                View All Entries
+              </button>
+              <div className="editDeleteBut">
+                <button onClick={() => setEditEntryButton((prev) => !prev)}>
+                  Edit
+                </button>
+                <button onClick={() => deleteHandler({ id })}>Delete</button>
+              </div>
+            </div>
+            <p className="createDate">Created on {createdDateDisplay()}</p>
+          </>
         ) : (
-            <>
+          <>
             <form className="form-container">
-                <input className="date" type="date" defaultValue={formatDate()} onChange={handleChange}/>
-                <br></br>
-                <input className="title" defaultValue={renderEntry.title} onChange={e => setTitle(e.target.value)}></input>
-                <br></br>
-                <textarea className="content" rows="5" cols="60" type="text" defaultValue={renderEntry.content} onChange={e => setContent(e.target.value)}></textarea>
+              <input
+                className="date"
+                type="date"
+                defaultValue={formatDate()}
+                onChange={handleChange}
+              />
+              <br></br>
+              <input
+                className="title"
+                defaultValue={renderEntry.title}
+                onChange={(e) => setTitle(e.target.value)}
+              ></input>
+              <br></br>
+              <textarea
+                className="content"
+                rows="5"
+                cols="60"
+                type="text"
+                defaultValue={renderEntry.content}
+                onChange={(e) => setContent(e.target.value)}
+              ></textarea>
             </form>
             <div className="cancelSubmitButtons">
-            <button onClick={handleCancel}>Cancel</button>
-            <button onClick={onSubmit} type="submit">Submit Edits</button>
+              <button onClick={handleCancel}>Cancel</button>
+              <button onClick={onSubmit} type="submit">
+                Submit Edits
+              </button>
             </div>
-            </>
-        ) }
+          </>
+        )}
       </div>
     </div>
-)
+  );
 };
 
 export default EntryById;

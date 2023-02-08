@@ -21,7 +21,7 @@ async function buildTables() {
                 "eventDate" DATE NOT NULL,
                 title VARCHAR(255) NOT NULL,
                 content TEXT NOT NULL,
-                "userId" REFERENCES users.(id)
+                "userId" INT REFERENCES users(id)
             );
         `)
     } catch (error) {

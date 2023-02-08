@@ -1,5 +1,4 @@
 import "./App.css";
-// import { useState } from 'react';
 import { Link, Routes, Route } from "react-router-dom";
 import CreateEntry from "./CreateEntry";
 import { useEffect, useState } from "react";
@@ -8,13 +7,11 @@ import CalendarView from "./CalendarView";
 import { callApi } from "../api/utils";
 import EntryById from "./EntryById";
 
-
 const stringifyCurrentDate = () => {
   let today = new Date();
   let day = `${today.getDate()}`;
   let month = `${today.getMonth() + 1}`;
   let year = `${today.getFullYear()}`;
-  console.log("Month length:", month.length);
   if (day.length < 2) {
     day = "0" + day;
   }
@@ -32,47 +29,42 @@ const stringifyCurrentDate = () => {
   return currentDateFormatted;
 };
 
-
-
-
 function App() {
   const [currentDate, setCurrentDate] = useState({});
   const [date, setDate] = useState("");
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
-  const [allEntries, setAllEntries] = useState([])
-  // const [allEntries, setAllEntries] = useState(window.localStorage.getItem("allEntries" || []));
-  
-    useEffect( () => {
-      window.localStorage.setItem("allEntries", JSON.stringify(allEntries))
-    }, [allEntries])
+  const [allEntries, setAllEntries] = useState([]);
 
-    useEffect( () => {
-      const data = window.localStorage.getItem("allEntries")
-      if(data) setAllEntries(JSON.parse(data))
-    }, [])
+  useEffect(() => {
+    window.localStorage.setItem("allEntries", JSON.stringify(allEntries));
+  }, [allEntries]);
+
+  useEffect(() => {
+    const data = window.localStorage.getItem("allEntries");
+    if (data) setAllEntries(JSON.parse(data));
+  }, []);
 
   const getAllEntries = async () => {
     try {
       let entries = await callApi({
-        path: "/entries"
-      })
-      entries.map( entry => {  
-        entry.start = entry.eventDate
-        entry.end = entry.eventDate
+        path: "/entries",
+      });
+      entries.map((entry) => {
+        entry.start = entry.eventDate;
+        entry.end = entry.eventDate;
         return entry;
-        } )
-        setAllEntries(entries)
+      });
+      setAllEntries(entries);
       return entries;
     } catch (error) {
-      console.log(error)
+      console.log(error);
     }
   };
 
-  console.log('allEntries :>> ', allEntries);
-  useEffect(  () => {
-    getAllEntries()
-  },[]);
+  useEffect(() => {
+    getAllEntries();
+  }, []);
 
   useEffect(() => {
     setCurrentDate(stringifyCurrentDate());
@@ -82,19 +74,27 @@ function App() {
     <div className="app">
       <nav className="navbarContainer">
         <div className="logoContainer">
-        <h1 className="logo">CONFIDANT. <span className="jingle">a shoulder to type on</span></h1>
+          <h1 className="logo">
+            CONFIDANT. <span className="jingle">a shoulder to type on</span>
+          </h1>
         </div>
         <ul className="navbar">
           <li>
-          <Link className="navbarLinks" to="/">Calendar</Link>
-            </li>
-            <li>
-              <Link className="navbarLinks" to="/newEntry">Create Entry</Link>
-            </li>
-            <li>
-          <Link className="navbarLinks" to="/entries">All Entries</Link>
-            </li>
-            {/* <li>
+            <Link className="navbarLinks" to="/">
+              Calendar
+            </Link>
+          </li>
+          <li>
+            <Link className="navbarLinks" to="/newEntry">
+              Create Entry
+            </Link>
+          </li>
+          <li>
+            <Link className="navbarLinks" to="/entries">
+              All Entries
+            </Link>
+          </li>
+          {/* <li>
           <button className="dropbtn">
             Customize
             <i className="fa fa-caret-down"></i>
@@ -104,16 +104,13 @@ function App() {
             <button>Sleek</button>
             <button>Clean</button>
           </div>
-
             </li> */}
         </ul>
       </nav>
       <Routes>
         <Route
           path="/"
-          element={
-            <CalendarView allEntries={allEntries} setDate={setDate} date={date} />
-          }
+          element={<CalendarView allEntries={allEntries} setDate={setDate} />}
         ></Route>
         <Route
           path="/newEntry"
@@ -134,11 +131,14 @@ function App() {
         ></Route>
         <Route
           path="/entries"
+          element={<AllEntries allEntries={allEntries} />}
+        ></Route>
+        <Route
+          path="/entries/entry/:id"
           element={
-            <AllEntries setAllEntries={setAllEntries} allEntries={allEntries} getAllEntries={getAllEntries}/>
+            <EntryById allEntries={allEntries} setAllEntries={setAllEntries} />
           }
         ></Route>
-        <Route path="/entries/entry/:id" element={<EntryById allEntries={allEntries} setAllEntries={setAllEntries}/>}></Route>
       </Routes>
     </div>
   );
