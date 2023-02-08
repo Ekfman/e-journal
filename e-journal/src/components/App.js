@@ -81,7 +81,7 @@ function App() {
         </div>
         <ul className="navbar">
           <li>
-            <Link to="/register">Register</Link>
+            <Link className="navbarLinks" to="/register">Register</Link>
           </li>
           <li>
             <Link className="navbarLinks" to="/">
