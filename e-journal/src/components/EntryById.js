@@ -99,7 +99,7 @@ const EntryById = ({ setAllEntries, allEntries }) => {
           path: `/entries/${id}`,
         });
         setAllEntries((prev) => prev.filter((e) => e.id !== id));
-        navigate("/entries");
+        navigate("/");
         if (result) window.alert("You entry has been successfully deleted.");
         window.location.reload(false);
         return allEntries;

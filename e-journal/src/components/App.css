@@ -85,6 +85,7 @@
 
  .rbc-event{
   background-color: #88b9cf !important;
+  font-family: 'Courier New', Courier, monospace !important;
  }
 
  .rbc-day-bg{
@@ -117,6 +118,8 @@
   font-size: x-large;
   background-color: rgba(255, 255, 255, 0.754);
   border: none;
+  font-family: 'Courier New', Courier, monospace;
+  color: black;
  }
 
  .description{
@@ -284,6 +287,7 @@
   color: rgb(80, 79, 79);
   margin-bottom: 10px;
   margin-top: 12px;
+  font-family: 'Courier New', Courier, monospace;
 }
 .allEntryContent{
   height: auto;
