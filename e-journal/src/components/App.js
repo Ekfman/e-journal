@@ -6,6 +6,7 @@ import AllEntries from "./AllEntries";
 import CalendarView from "./CalendarView";
 import { callApi } from "../api/utils";
 import EntryById from "./EntryById";
+import Register from "./Register";
 
 const stringifyCurrentDate = () => {
   let today = new Date();
@@ -80,6 +81,9 @@ function App() {
         </div>
         <ul className="navbar">
           <li>
+            <Link to="/register">Register</Link>
+          </li>
+          <li>
             <Link className="navbarLinks" to="/">
               Calendar
             </Link>
@@ -112,6 +116,7 @@ function App() {
           path="/"
           element={<CalendarView allEntries={allEntries} setDate={setDate} />}
         ></Route>
+        <Route path="/register" element={<Register />}></Route>
         <Route
           path="/newEntry"
           element={
