@@ -1,6 +1,7 @@
 import Entry from "./Entry";
 
 const AllEntries = ({ allEntries }) => {
+  console.log('allEntries :>> ', allEntries);
   return (
     <div className="container">
       <div className="entriesContainer">
