@@ -51,7 +51,7 @@ const CreateEntry = ({
         setDate("");
         setTitle("");
         setContent("");
-        navigate("/");
+        navigate("/calendar");
         window.location.reload(false);
       }
       return allEntries;
