@@ -1,5 +1,5 @@
 {
-  "name": "my-react-app",
+  "name": "confidant",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -26,6 +26,10 @@
     "react-router-dom": "^6.6.2",
     "react-scripts": "5.0.1",
     "web-vitals": "^2.1.4"
+  },
+  "engines": {
+    "node": "19.6.0",
+    "npm": "9.5.0"
   },
   "scripts": {
     "server:dev": "nodemon index.js",
