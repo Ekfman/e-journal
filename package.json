@@ -20,7 +20,6 @@
     "react-dom": "^18.2.0",
     "react-fns": "^1.4.0",
     "react-router-dom": "^6.6.2",
-    "react-scripts": "5.0.1",
     "web-vitals": "^2.1.4"
   },
   "engines": {
@@ -33,7 +32,7 @@
     "start": "node index.js",
     "client:dev": "react-scripts start",
     "start:dev": "concurrently \"npm run client:build\" \"npm run client:dev\" \"npm run server:dev\"",
-    "build": "react-scripts build",
+    "build": "npx react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
@@ -60,6 +59,7 @@
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
     "case-sensitive-paths-webpack-plugin": "^2.4.0",
-    "nodemon": "^2.0.20"
+    "nodemon": "^2.0.20",
+    "react-scripts": "5.0.1"
   }
 }
