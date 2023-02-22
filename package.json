@@ -22,10 +22,7 @@
     "react-router-dom": "^6.6.2",
     "web-vitals": "^2.1.4"
   },
-  "engines": {
-    "node": "16.*.*",
-    "npm": "9.5.0"
-  },
+ 
   "scripts": {
     "server:dev": "nodemon index.js",
     "db:build": "node ./db/init_db",
