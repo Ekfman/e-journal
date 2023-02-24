@@ -31,7 +31,7 @@ const CreateEntry = ({
       if (!content) {
         window.alert("Hey, your entry seems a bit empty...");
       }
-      const newEntry = await callApi({
+      const newEntry = await callApi({  //make sure this doesn't run when any of the previous if statements are false
         method: "POST",
         body: {
           eventDate: date,
