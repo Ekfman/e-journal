@@ -1,4 +1,6 @@
 const express = require("express");
+const jwt = require("jsonwebtoken");
+
 const {
   addEntry,
   getAllEntries,
@@ -10,14 +12,14 @@ const entriesRouter = express.Router();
 
 entriesRouter.get("/", async (req, res, next) => {
   try {
-    const fetchAllEntries = await getAllEntries();
+    const fetchAllEntries = await getAllEntries(req.user.id);
     res.send(fetchAllEntries);
   } catch ({ name, message }) {
     next({ name, message });
   }
 });
 
-entriesRouter.get("/:id", async (req, res, next) => {
+entriesRouter.get("/:entryId", async (req, res, next) => {
   try {
     const { id } = req.params;
     const fetchEntryById = await getEntryById(id);
@@ -29,8 +31,9 @@ entriesRouter.get("/:id", async (req, res, next) => {
 
 entriesRouter.post("/create", async (req, res, next) => {
   try {
-    const { createDate, eventDate, title, content } = req.body;
-    const newEntry = await addEntry(createDate, eventDate, title, content);
+    const { createDate, eventDate, title, content, token } = req.body;
+    const user = jwt.verify( token, process.env.JWT_SECRET)
+    const newEntry = await addEntry(createDate, eventDate, title, content, user.id);
     res.send(newEntry);
   } catch ({ name, message }) {
     next({ name, message });

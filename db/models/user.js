@@ -54,8 +54,21 @@ async function getUserByEmail(email) {
   }
 }
 
+async function getUserById(id){
+  try {
+    const { rows: [user],} = await client.query(`
+      SELECT * FROM users
+      WHERE id = $1
+    `, [id]);
+    return user
+  } catch (error) {
+    console.log(error);
+  }
+}
+
 module.exports = {
   createUser,
   getUserByEmail,
   validateAndGetUser,
+  getUserById
 };

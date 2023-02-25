@@ -11,13 +11,14 @@ const CreateEntry = ({
   setContent,
   setAllEntries,
   allEntries,
+  token
 }) => {
   const navigate = useNavigate();
   const cancelHandler = () => {
     setDate("");
     setTitle("");
     setContent("");
-    navigate("/");
+    navigate("/calendar");
   };
   const onSubmit = async (e) => {
     e.preventDefault();
@@ -29,32 +30,35 @@ const CreateEntry = ({
         window.alert("Don't forget to title this entry!");
       }
       if (!content) {
-        window.alert("Hey, your entry seems a bit empty...");
+        window.alert("Hey, your entry seems a bit empty, please add some details!");
       }
-      const newEntry = await callApi({  //make sure this doesn't run when any of the previous if statements are false
-        method: "POST",
-        body: {
-          eventDate: date,
-          createDate: currentDate.currentDateServer,
-          title,
-          content,
-        },
-        path: "/entries/create",
-      });
-      if (!allEntries) {
-        setAllEntries(newEntry);
-      } else {
-        setAllEntries((prev) => [...prev, newEntry]);
+      if(date && title && content){
+        const newEntry = await callApi({
+          method: "POST",
+          body: {
+            token,
+            eventDate: date,
+            createDate: currentDate.currentDateServer,
+            title,
+            content,
+          },
+          path: "/entries/create",
+        });
+        if (!allEntries) {
+          setAllEntries(newEntry);
+        } else {
+          setAllEntries((prev) => [...prev, newEntry]);
+        }
+        if (newEntry) {
+          window.alert("Your entry has been added!");
+          setDate("");
+          setTitle("");
+          setContent("");
+          navigate("/calendar");
+          window.location.reload(false);
+        }
+        return allEntries;
       }
-      if (newEntry) {
-        window.alert("Your entry has been added!");
-        setDate("");
-        setTitle("");
-        setContent("");
-        navigate("/calendar");
-        window.location.reload(false);
-      }
-      return allEntries;
     } catch (error) {
       console.log(error);
     }

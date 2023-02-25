@@ -46,19 +46,11 @@ function App() {
     window.localStorage.setItem("token", token);
   }, [token]);
 
-  useEffect(() => {
-    window.localStorage.setItem("allEntries", JSON.stringify(allEntries));
-  }, [allEntries]);
-
-  useEffect(() => {
-    const data = window.localStorage.getItem("allEntries");
-    if (data) setAllEntries(JSON.parse(data));
-  }, []);
-
-  const getAllEntries = async () => {
+  const getAllEntriesByUser = async () => {
     try {
       let entries = await callApi({
         path: "/entries",
+        token
       });
       entries.map((entry) => {
         entry.start = entry.eventDate;
@@ -73,7 +65,7 @@ function App() {
   };
 
   useEffect(() => {
-    getAllEntries();
+    getAllEntriesByUser();
   }, []);
 
   useEffect(() => {
@@ -82,7 +74,6 @@ function App() {
 
   const handleLogout = () => {
     localStorage.removeItem("token");
-    localStorage.removeItem("allEntries"); //this doesn't work for some reason
     navigate("/");
     window.location.reload(false);
   };
@@ -173,6 +164,7 @@ function App() {
               stringifyCurrentDate={stringifyCurrentDate}
               setAllEntries={setAllEntries}
               allEntries={allEntries}
+              token={token}
             />
           }
         ></Route>

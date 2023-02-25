@@ -1,10 +1,11 @@
 const client = require("../client");
 
-async function getAllEntries() {
+async function getAllEntries(userId) {
   try {
     const { rows } = await client.query(`
         SELECT * FROM entries
-        `);
+        WHERE "userId" = $1
+        `, [userId]);
     return rows;
   } catch (error) {
     console.log(error);
@@ -28,17 +29,17 @@ async function getEntryById(id) {
   }
 }
 
-async function addEntry(createDate, eventDate, title, content) {
+async function addEntry(createDate, eventDate, title, content, userId) {
   try {
     const {
       rows: [entry],
     } = await client.query(
       `
-        INSERT INTO entries("createDate", "eventDate", title, content)
-        VALUES ($1, $2, $3, $4)
+        INSERT INTO entries("createDate", "eventDate", title, content, "userId")
+        VALUES ($1, $2, $3, $4, $5)
         RETURNING*;
             `,
-      [createDate, eventDate, title, content]
+      [createDate, eventDate, title, content, userId]
     );
     return entry;
   } catch (error) {
