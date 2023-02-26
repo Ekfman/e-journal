@@ -1,12 +1,29 @@
+import { useState } from "react";
 import Entry from "./Entry";
 
 const AllEntries = ({ allEntries, currentDate }) => {
-  console.log('allEntries :>> ', allEntries);
+  const [searchValue, setSearchValue] = useState("")
+  const entriesMatches = (entry) => {
+    const textToCheck = (
+      entry.title +
+      entry.content
+    ).toLowerCase();
+    return textToCheck.includes(searchValue.toLowerCase());
+  };
+  const filteredEntries = allEntries.filter((post) => entriesMatches(post));
+
   return (
-    <div className="container">
+    <div className="allEntriesContainer">
+      <input
+          className="searchBar"
+          type="text"
+          value={searchValue}
+          onChange={(e) => setSearchValue(e.target.value)}
+          placeholder="search for an entry"
+        ></input>
       <div className="entriesContainer">
         {allEntries ? (
-          allEntries.map((entry) => {
+          filteredEntries.map((entry) => {
             return <Entry key={entry.id} entry={entry} currentDate={currentDate} />;
           })
         ) : (

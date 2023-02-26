@@ -9,7 +9,7 @@
   height: 1000px;
   top: 0;
   left: 0;
-  font-family: Arial, Helvetica, sans-serif
+  font-family: 'Courier New', Courier, monospace;
 }
 
 @media screen and (max-width: 1024px) {
@@ -60,6 +60,7 @@
   color: rgba(73, 73, 73, 0.806);
   background-color: rgba(247, 247, 247, 0.346);
   font-weight: bold;
+  font-family: Arial, Helvetica, sans-serif;
  }
 
  .rbc-toolbar button{
@@ -74,6 +75,7 @@
   font-size: xx-large;
   background-color: rgba(255, 192, 203, 0.561);
   text-align: right !important;
+  font-family: Arial, Helvetica, sans-serif;
  }
 
  .rbc-month-view{
@@ -192,6 +194,7 @@
    color: white;
    font-size: 25px;
    margin-left: 80px;
+   font-family: Arial, Helvetica, sans-serif;
 }
 .jingle{
   color: white;
@@ -211,6 +214,7 @@
   text-decoration: none;
   padding-left: 8px;
   padding-right: 4px;
+  font-family: Arial, Helvetica, sans-serif;
 }
 
  .dropdown .dropbtn {
@@ -348,7 +352,16 @@
 
 .createDate{
   text-align: right;
-  font-weight:540;
+  font-family: Arial, Helvetica, sans-serif;
+  /* font-weight: bold; */
+  /* color: white; */
+  /* background-color: rgba(226, 201, 206, 0.728);
+  width: fit-content; */
+}
+
+.read-more-btn{
+  color: white;
+  text-decoration: none;
 }
 
 .buttons{
@@ -415,4 +428,25 @@
 .registerHeader{
   margin-bottom: 40px;
   color: white;
+}
+
+.searchBar{
+  width: 40%;
+  /* height: 10000px; */
+  border: 1px solid rgba(0, 0, 0, 0.29);
+  padding: 15px;
+  border-radius: 10px;
+  margin-top: 20px;
+}
+
+input:focus,
+#alphatxt:focus {
+    outline: 0;
+}
+
+.allEntriesContainer{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 90%;
 }

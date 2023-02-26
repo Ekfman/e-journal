@@ -87,6 +87,7 @@ const CreateEntry = ({
             cols="60"
             type="text"
             placeholder="What happened?! Tell me."
+            wrap="soft"
             onChange={(e) => setContent(e.target.value)}
           ></textarea>
         </form>

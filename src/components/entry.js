@@ -1,7 +1,7 @@
 import { useNavigate, Link } from "react-router-dom";
 
 const Entry = ({ entry, currentDate }) => {
-  // const navigate = useNavigate();
+  const navigate = useNavigate();
 
   const createEventDateDisplay = () => {
     const formatDate = new Date(`${entry.eventDate}`);
@@ -13,9 +13,9 @@ const Entry = ({ entry, currentDate }) => {
     return displayDate;
   };
 
-  // const handleReadMore = ({ id }) => {
-  //   navigate(`entry/${id}`);
-  // };
+  const handleReadMore = ({ id }) => {
+    navigate(`entry/${id}`);
+  };
 
   return (
     <div className="singleEntryContainer">
@@ -25,10 +25,7 @@ const Entry = ({ entry, currentDate }) => {
         <p>{entry.content}</p>
       </div>
       <div className="readMoreButton">
-        {/* <button onClick={() => handleReadMore({ id: entry.id })}>
-          Read More
-        </button> */}
-        <button><Link to={`/entries/entry/${entry.id}`}>Read More</Link></button>
+        <button onClick={() => handleReadMore({ id: entry.id })}><Link className="read-more-btn" to={`/entries/entry/${entry.id}`}>Read More</Link></button>
       </div>
       <p className="createDate">Created on {currentDate.currentDateClient}</p>
     </div>
