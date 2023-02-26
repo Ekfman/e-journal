@@ -19,7 +19,7 @@ const localizer = dateFnsLocalizer({
   locales,
 });
 
-const CalendarView = ({ allEntries, setDate }) => {
+const CalendarView = ({ allEntries, setEventDate }) => {
   const navigate = useNavigate();
 
   const handleEntryClick = (entry) => {
@@ -43,7 +43,7 @@ const CalendarView = ({ allEntries, setDate }) => {
       `Do you want to create an entry for ${month}/${day}/${year}`
     );
     if (prompt) {
-      setDate(clickedDay);
+      setEventDate(clickedDay);
       navigate("/newEntry");
     }
   };

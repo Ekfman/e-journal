@@ -19,7 +19,7 @@ entriesRouter.get("/", async (req, res, next) => {
   }
 });
 
-entriesRouter.get("/:entryId", async (req, res, next) => {
+entriesRouter.get("/:id", async (req, res, next) => {
   try {
     const { id } = req.params;
     const fetchEntryById = await getEntryById(id);

@@ -3,8 +3,8 @@ import { callApi } from "../api/utils";
 
 const CreateEntry = ({
   currentDate,
-  date,
-  setDate,
+  eventDate,
+  setEventDate,
   title,
   setTitle,
   content,
@@ -15,7 +15,7 @@ const CreateEntry = ({
 }) => {
   const navigate = useNavigate();
   const cancelHandler = () => {
-    setDate("");
+    setEventDate("");
     setTitle("");
     setContent("");
     navigate("/calendar");
@@ -23,7 +23,7 @@ const CreateEntry = ({
   const onSubmit = async (e) => {
     e.preventDefault();
     try {
-      if (!date) {
+      if (!eventDate) {
         window.alert("Please choose a date");
       }
       if (!title) {
@@ -32,12 +32,12 @@ const CreateEntry = ({
       if (!content) {
         window.alert("Hey, your entry seems a bit empty, please add some details!");
       }
-      if(date && title && content){
+      if(eventDate && title && content){
         const newEntry = await callApi({
           method: "POST",
           body: {
             token,
-            eventDate: date,
+            eventDate: eventDate,
             createDate: currentDate.currentDateServer,
             title,
             content,
@@ -51,7 +51,7 @@ const CreateEntry = ({
         }
         if (newEntry) {
           window.alert("Your entry has been added!");
-          setDate("");
+          setEventDate("");
           setTitle("");
           setContent("");
           navigate("/calendar");
@@ -71,8 +71,8 @@ const CreateEntry = ({
           <input
             className="date"
             type="date"
-            value={date}
-            onChange={(e) => setDate(e.target.value)}
+            value={eventDate}
+            onChange={(e) => setEventDate(e.target.value)}
           />
           <br></br>
           <input

@@ -14,15 +14,9 @@ const stringifyCurrentDate = () => {
   let day = `${today.getDate()}`;
   let month = `${today.getMonth() + 1}`;
   let year = `${today.getFullYear()}`;
-  if (day.length < 2) {
-    day = "0" + day;
-  }
-  if (month.length < 2) {
-    month = "0" + month;
-  }
 
   let currentDateServer = `${year}-${month}-${day}`;
-  let currentDateClient = `${day}/${month}/${year}`;
+  let currentDateClient = `${month}/${day}/${year}`;
 
   let currentDateFormatted = {
     currentDateServer,
@@ -33,7 +27,7 @@ const stringifyCurrentDate = () => {
 
 function App() {
   const [currentDate, setCurrentDate] = useState({});
-  const [date, setDate] = useState("");
+  const [eventDate, setEventDate] = useState("");
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const [allEntries, setAllEntries] = useState([]);
@@ -143,7 +137,7 @@ function App() {
       <Routes>
         <Route
           path="/calendar"
-          element={<CalendarView allEntries={allEntries} setDate={setDate} />}
+          element={<CalendarView allEntries={allEntries} setEventDate={setEventDate} />}
         ></Route>
         <Route
           path="/register"
@@ -155,13 +149,12 @@ function App() {
           element={
             <CreateEntry
               currentDate={currentDate}
-              date={date}
-              setDate={setDate}
+              eventDate={eventDate}
+              setEventDate={setEventDate}
               title={title}
               setTitle={setTitle}
               content={content}
               setContent={setContent}
-              stringifyCurrentDate={stringifyCurrentDate}
               setAllEntries={setAllEntries}
               allEntries={allEntries}
               token={token}
@@ -170,12 +163,12 @@ function App() {
         ></Route>
         <Route
           path="/entries"
-          element={<AllEntries allEntries={allEntries} />}
+          element={<AllEntries allEntries={allEntries} currentDate={currentDate} />}
         ></Route>
         <Route
           path="/entries/entry/:id"
           element={
-            <EntryById allEntries={allEntries} setAllEntries={setAllEntries} />
+            <EntryById allEntries={allEntries} currentDate={currentDate}/>
           }
         ></Route>
       </Routes>

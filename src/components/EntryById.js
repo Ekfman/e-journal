@@ -2,22 +2,13 @@ import { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { callApi } from "../api/utils";
 
-const EntryById = ({ setAllEntries, allEntries }) => {
+const EntryById = ({ allEntries, currentDate }) => {
   const [renderEntry, setRenderEntry] = useState({});
   const [editEntryButton, setEditEntryButton] = useState(false);
 
   const { id } = useParams();
   const navigate = useNavigate();
 
-  const createdDateDisplay = () => {
-    const formatDate = new Date(`${renderEntry.createDate}`);
-    let year = `${formatDate.getFullYear()}`;
-    let month = `${formatDate.getMonth() + 1}`;
-    let day = `${formatDate.getDate()}`;
-
-    const displayDate = `${month}/${day}/${year}`;
-    return displayDate;
-  };
   const createEventDateDisplay = () => {
     const formatDate = new Date(`${renderEntry.eventDate}`);
     let year = `${formatDate.getFullYear()}`;
@@ -42,17 +33,23 @@ const EntryById = ({ setAllEntries, allEntries }) => {
   useEffect(() => {
     fetchEntryById();
   }, []);
+  
+  console.log('renderEntry :>> ', renderEntry);
 
-  const [date, setDate] = useState("");
+
   const [title, setTitle] = useState(renderEntry.title);
+  console.log('renderEntry.title :>> ', renderEntry.title);
+  console.log('title :>> ', title);
   const [content, setContent] = useState(renderEntry.content);
+  console.log('renderEntry.content :>> ', renderEntry.content);
+  console.log('content :>> ', content);
   //need to figure out why these initial states are not saving
-
+  
   const handleCancel = () => {
     setEditEntryButton((prev) => !prev);
     navigate(`/entries/entry/${id}`);
   };
-
+  
   const formatDate = () => {
     const date = new Date(`${renderEntry.eventDate}`);
     let year = `${date.getFullYear()}`;
@@ -67,10 +64,11 @@ const EntryById = ({ setAllEntries, allEntries }) => {
     const formattedDate = `${year}-${month}-${day}`;
     return formattedDate;
   };
-
+  
   useEffect(() => {
     setDate(formatDate());
   }, []);
+  const [date, setDate] = useState(formatDate());
   const onSubmit = async (e) => {
     e.preventDefault();
     try {
@@ -98,8 +96,7 @@ const EntryById = ({ setAllEntries, allEntries }) => {
           method: "DELETE",
           path: `/entries/${id}`,
         });
-        setAllEntries((prev) => prev.filter((e) => e.id !== id));
-        navigate("/entries");
+        navigate("/calendar");
         if (result) window.alert("You entry has been successfully deleted.");
         window.location.reload(false);
         return allEntries;
@@ -134,7 +131,7 @@ const EntryById = ({ setAllEntries, allEntries }) => {
                 <button onClick={() => deleteHandler({ id })}>Delete</button>
               </div>
             </div>
-            <p className="createDate">Created on {createdDateDisplay()}</p>
+            <p className="createDate">Created on {currentDate.currentDateClient}</p>
           </>
         ) : (
           <>
