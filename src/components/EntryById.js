@@ -18,7 +18,7 @@ const EntryById = ({ allEntries, currentDate }) => {
     const displayDate = `${month}/${day}/${year}`;
     return displayDate;
   };
-  const fetchEntryById = async () => {
+  const fetchEntryById = async (id) => {
     try {
       const result = await callApi({
         path: `/entries/${id}`,
@@ -31,8 +31,8 @@ const EntryById = ({ allEntries, currentDate }) => {
   };
 
   useEffect(() => {
-    fetchEntryById();
-  }, []);
+    fetchEntryById(id);
+  }, [id]);
   
   console.log('renderEntry :>> ', renderEntry);
 
@@ -50,8 +50,8 @@ const EntryById = ({ allEntries, currentDate }) => {
     navigate(`/entries/entry/${id}`);
   };
   
-  const formatDate = () => {
-    const date = new Date(`${renderEntry.eventDate}`);
+  const formatDate = (eventDate) => {
+    const date = new Date(`${eventDate}`);
     let year = `${date.getFullYear()}`;
     let month = `${date.getMonth() + 1}`;
     let day = `${date.getDate()}`;
@@ -66,8 +66,8 @@ const EntryById = ({ allEntries, currentDate }) => {
   };
   
   useEffect(() => {
-    setDate(formatDate());
-  }, []);
+    setDate(formatDate(renderEntry.eventDate));
+  }, [renderEntry.eventDate]);
   const [date, setDate] = useState(formatDate());
   const onSubmit = async (e) => {
     e.preventDefault();
@@ -79,7 +79,7 @@ const EntryById = ({ allEntries, currentDate }) => {
       });
       if (result) window.alert("Your edits have been saved.");
       navigate(`/entries/entry/${id}`);
-      window.location.reload(false);
+      // window.location.reload(false);
       return result;
     } catch (error) {
       console.log(error);
