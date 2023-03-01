@@ -62,7 +62,7 @@ const EntryById = ({ allEntries, currentDate }) => {
       month = "0" + month;
     }
     const formattedDate = `${year}-${month}-${day}`;
-    return formattedDate;
+    return formattedDate
   };
   
   useEffect(() => {
