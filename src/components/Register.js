@@ -56,6 +56,18 @@ const Register = ({ setToken }) => {
               onChange={(e) => setPassword(e.target.value)}
               required
             ></input>
+            <label className="registerLabels">
+              Re-type Password:
+              <div className="passwordNote">
+                (passwords must match)
+              </div>
+            </label>
+            <input
+              className="inputField"
+              type="password"
+              onChange={(e) => setPassword(e.target.value)}
+              required
+            ></input>
             <div className="buttonContainer">
               <button className="signupButton" onClick={submitHandler}>
                 Create Account
