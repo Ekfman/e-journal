@@ -5,14 +5,17 @@ import { callApi } from "../api/utils";
 const Register = ({ setToken }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [matchPassword, setMatchPassword] = useState("");
   const navigate = useNavigate();
   const submitHandler = async (e) => {
     e.preventDefault();
     try {
       if (!email) window.alert("Must enter an a valid email address");
       if (!password) window.alert("Must enter a password");
-      if (password.length < 8) window.alert("password length too short");
-      if (password && email) {
+      if (!matchPassword) window.alert("Please re-type your password")
+      if (matchPassword !== password) window.alert("Passwords must match")
+      if (password.length < 8) window.alert("Password length too short");
+      if (matchPassword && email) {
         const result = await callApi({
           method: "POST",
           body: { email, password },
@@ -56,6 +59,7 @@ const Register = ({ setToken }) => {
               onChange={(e) => setPassword(e.target.value)}
               required
             ></input>
+            <br></br>
             <label className="registerLabels">
               Re-type Password:
               <div className="passwordNote">
@@ -65,7 +69,7 @@ const Register = ({ setToken }) => {
             <input
               className="inputField"
               type="password"
-              onChange={(e) => setPassword(e.target.value)}
+              onChange={(e) => setMatchPassword(e.target.value)}
               required
             ></input>
             <div className="buttonContainer">

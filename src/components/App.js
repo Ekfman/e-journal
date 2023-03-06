@@ -40,7 +40,9 @@ function App() {
     window.localStorage.setItem("token", token);
   }, [token]);
 
-  const getAllEntriesByUser = async () => {
+  console.log('token :>> ', token);
+  
+  const getAllEntriesByUser = async (token) => {
     try {
       let entries = await callApi({
         path: "/entries",
@@ -60,7 +62,7 @@ function App() {
 
   useEffect(() => {
     getAllEntriesByUser();
-  }, []);
+  }, [token]);
 
   useEffect(() => {
     setCurrentDate(stringifyCurrentDate());
@@ -69,7 +71,7 @@ function App() {
   const handleLogout = () => {
     localStorage.removeItem("token");
     navigate("/");
-    window.location.reload(false);
+    // window.location.reload(false);
   };
   return (
     <div className="app">
