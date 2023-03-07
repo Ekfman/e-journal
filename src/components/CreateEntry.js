@@ -11,7 +11,8 @@ const CreateEntry = ({
   setContent,
   setAllEntries,
   allEntries,
-  token
+  token,
+  darkMode
 }) => {
   const navigate = useNavigate();
   const cancelHandler = () => {
@@ -44,11 +45,6 @@ const CreateEntry = ({
           },
           path: "/entries/create",
         });
-        if (!allEntries) {
-          setAllEntries(newEntry);
-        } else {
-          setAllEntries((prev) => [...prev, newEntry]);
-        }
         if (newEntry) {
           window.alert("Your entry has been added!");
           setEventDate("");
@@ -64,29 +60,30 @@ const CreateEntry = ({
     }
   };
 
+
   return (
     <div className="container">
-      <div className="singleEntryContainer">
+      <div className={darkMode ? "singleEntryContainer-dark" : "singleEntryContainer"}>
         <form className="form-container">
           <input
-            className="date"
+            className={darkMode ? "date-dark" : "date"}
             type="date"
             value={eventDate}
             onChange={(e) => setEventDate(e.target.value)}
           />
           <br></br>
           <input
-            className="title"
+            className={darkMode ? "title-dark" : "title"}
             placeholder="Title"
             onChange={(e) => setTitle(e.target.value)}
           ></input>
           <br></br>
           <textarea
-            className="createContent"
+            className={darkMode ? "create-content-dark" : "createContent"}
             rows="5"
             cols="60"
             type="text"
-            placeholder="What happened?! Tell me."
+            placeholder="What's on your mind? Tell me."
             name="entry"
             onChange={(e) => setContent(e.target.value)}
           ></textarea>

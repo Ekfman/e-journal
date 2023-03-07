@@ -1,7 +1,7 @@
 import { useState } from "react";
 import Entry from "./Entry";
 
-const AllEntries = ({ allEntries, currentDate }) => {
+const AllEntries = ({ allEntries, currentDate, darkMode }) => {
   const [searchValue, setSearchValue] = useState("")
   const entriesMatches = (entry) => {
     const textToCheck = (
@@ -15,7 +15,7 @@ const AllEntries = ({ allEntries, currentDate }) => {
   return (
     <div className="allEntriesContainer">
       <input
-          className="searchBar"
+          className={darkMode ? "searchBar-dark" : "searchBar"}
           type="text"
           value={searchValue}
           onChange={(e) => setSearchValue(e.target.value)}
@@ -24,7 +24,7 @@ const AllEntries = ({ allEntries, currentDate }) => {
       <div className="entriesContainer">
         {allEntries ? (
           filteredEntries.map((entry) => {
-            return <Entry key={entry.id} entry={entry} currentDate={currentDate} />;
+            return <Entry key={entry.id} entry={entry} currentDate={currentDate} darkMode={darkMode} />;
           })
         ) : (
           <div>You haven't written any entries yet!</div>

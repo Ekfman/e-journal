@@ -1,6 +1,6 @@
 import { useNavigate, Link } from "react-router-dom";
 
-const Entry = ({ entry, currentDate }) => {
+const Entry = ({ entry, currentDate, darkMode }) => {
   const navigate = useNavigate();
 
   const createEventDateDisplay = () => {
@@ -18,16 +18,16 @@ const Entry = ({ entry, currentDate }) => {
   };
 
   return (
-    <div className="singleEntryContainer">
-      <div className="entryContent">
-        <h2 className="entryTitle">{entry.title}</h2>
+    <div className={darkMode ? "singleEntryContainer-dark": "singleEntryContainer"}>
+      <div className={darkMode ? "entryContent-dark" : "entryContent"}>
+        <h2 className={darkMode? "entryTitle-dark" : "entryTitle"}>{entry.title}</h2>
         <p>{createEventDateDisplay()}</p>
         <p>{entry.content}</p>
       </div>
       <div className="readMoreButton">
-        <button onClick={() => handleReadMore({ id: entry.id })}><Link className="read-more-btn" to={`/entries/entry/${entry.id}`}>Read More</Link></button>
+        <button onClick={() => handleReadMore({ id: entry.id })}><Link className={darkMode ? "read-more-btn-dark" : "read-more-btn"} to={`/entries/entry/${entry.id}`}>Read More</Link></button>
       </div>
-      <p className="createDate">Created on {currentDate.currentDateClient}</p>
+      <p className={darkMode ? "createDate-dark" : "createDate"}>Created on {currentDate.currentDateClient}</p>
     </div>
   );
 };

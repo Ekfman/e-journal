@@ -19,7 +19,7 @@ const localizer = dateFnsLocalizer({
   locales,
 });
 
-const CalendarView = ({ allEntries, setEventDate }) => {
+const CalendarView = ({ allEntries, setEventDate, darkMode }) => {
   const navigate = useNavigate();
 
   const handleEntryClick = (entry) => {
@@ -49,6 +49,21 @@ const CalendarView = ({ allEntries, setEventDate }) => {
   };
   return (
     <div className="calendarView">
+    {darkMode ? (
+      <div className="calendar-container-dark">
+        <Calendar
+          localizer={localizer}
+          style={{ height: 500, margin: "50px" }}
+          views={MonthView}
+          events={allEntries}
+          startAccessor="start"
+          endAccessor="end"
+          selectable={true}
+          onSelectEvent={handleEntryClick}
+          onSelectSlot={handleSelectSlot}
+        />
+      </div>
+    ) : (
       <div className="calendar-container">
         <Calendar
           localizer={localizer}
@@ -62,6 +77,8 @@ const CalendarView = ({ allEntries, setEventDate }) => {
           onSelectSlot={handleSelectSlot}
         />
       </div>
+    )}
+    
     </div>
   );
 };

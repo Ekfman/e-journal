@@ -12,7 +12,9 @@ const entriesRouter = express.Router();
 
 entriesRouter.get("/", async (req, res, next) => {
   try {
+    console.log(req.user.id);
     const fetchAllEntries = await getAllEntries(req.user.id);
+    console.log('fetchAllEntries :>> ', fetchAllEntries);
     res.send(fetchAllEntries);
   } catch ({ name, message }) {
     next({ name, message });

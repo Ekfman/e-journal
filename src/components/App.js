@@ -40,14 +40,21 @@ function App() {
     window.localStorage.setItem("token", token);
   }, [token]);
 
-  console.log('token :>> ', token);
+  const [darkMode, setDarkMode] = useState(
+    window.localStorage.getItem("true") || "true"
+  );
+  useEffect(() => {
+    window.localStorage.setItem("darkMode", true);
+  }, []);
+
   
-  const getAllEntriesByUser = async (token) => {
+  const getAllEntriesByUser = async () => {
     try {
       let entries = await callApi({
         path: "/entries",
         token
       });
+     console.log('entries :>> ', entries);
       entries.map((entry) => {
         entry.start = entry.eventDate;
         entry.end = entry.eventDate;
@@ -62,20 +69,25 @@ function App() {
 
   useEffect(() => {
     getAllEntriesByUser();
-  }, [token]);
+  }, []);
 
   useEffect(() => {
     setCurrentDate(stringifyCurrentDate());
   }, []);
 
+  const modeHandler = () => {
+    setDarkMode( prev => !prev)
+  }
+  
   const handleLogout = () => {
     localStorage.removeItem("token");
     navigate("/");
-    // window.location.reload(false);
+    window.location.reload(false);
   };
+  console.log('darkMode :>> ', darkMode);
   return (
-    <div className="app">
-      <nav className="navbarContainer">
+    <div className={darkMode ? "app-dark" : "app"}>
+      <nav className={darkMode ? "navbarContainer-dark" : "navbarContainer"}>
         <div className="logoContainer">
           <h1 className="logo">
             CONFIDANT. <span className="jingle">a shoulder to type on</span>
@@ -84,6 +96,13 @@ function App() {
         <ul className="navbar">
           {!token ? (
             <>
+            <li className="navbarLinks" onClick={modeHandler}>
+              {darkMode ? (
+                <img className="mode-dark" alt="light mode" src={require("./assets/closed_eye.png")}></img>
+              ) : (
+                <img className="mode" alt="light mode" src={require("./assets/open_eye.png")}></img>
+              )}
+              </li>
               <li>
                 <Link className="navbarLinks" to="/register">
                   Register
@@ -112,10 +131,13 @@ function App() {
                   All Entries
                 </Link>
               </li>
+              <li className="navbarLinks" onClick={modeHandler}>
+                Mode
+              </li>
               <li>
                 <Link
                   className="navbarLinks"
-                  to="/login"
+                  to="/"
                   onClick={handleLogout}
                 >
                   Logout
@@ -139,7 +161,7 @@ function App() {
       <Routes>
         <Route
           path="/calendar"
-          element={<CalendarView allEntries={allEntries} setEventDate={setEventDate} />}
+          element={<CalendarView allEntries={allEntries} setEventDate={setEventDate} darkMode={darkMode} />}
         ></Route>
         <Route
           path="/register"
@@ -160,12 +182,13 @@ function App() {
               setAllEntries={setAllEntries}
               allEntries={allEntries}
               token={token}
+              darkMode={darkMode}
             />
           }
         ></Route>
         <Route
           path="/entries"
-          element={<AllEntries allEntries={allEntries} currentDate={currentDate} />}
+          element={<AllEntries allEntries={allEntries} currentDate={currentDate} darkMode={darkMode}/>}
         ></Route>
         <Route
           path="/entries/entry/:id"

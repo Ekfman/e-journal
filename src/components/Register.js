@@ -7,6 +7,9 @@ const Register = ({ setToken }) => {
   const [password, setPassword] = useState("");
   const [matchPassword, setMatchPassword] = useState("");
   const navigate = useNavigate();
+  //test if user already exists
+
+  console.log('matchPassword :>> ', matchPassword);
   const submitHandler = async (e) => {
     e.preventDefault();
     try {
@@ -15,7 +18,7 @@ const Register = ({ setToken }) => {
       if (!matchPassword) window.alert("Please re-type your password")
       if (matchPassword !== password) window.alert("Passwords must match")
       if (password.length < 8) window.alert("Password length too short");
-      if (matchPassword && email) {
+      if (matchPassword === password && password >= 8 && email) {
         const result = await callApi({
           method: "POST",
           body: { email, password },

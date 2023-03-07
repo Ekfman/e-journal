@@ -15,10 +15,11 @@ const Login = ({ setToken }) => {
         body: { email, password },
         path: "/users/login",
       });
-      if (!result) window.alert("Incorrect email or password.");
-      setToken(result.token);
-      localStorage.setItem("token", result.token);
-      navigate("/calendar");
+      if (result) {
+        setToken(result.token);
+        localStorage.setItem("token", result.token);
+        navigate("/calendar");
+      } else window.alert("Incorrect email or password.")
       return result;
     } catch (error) {
       console.log(error);
