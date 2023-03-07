@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { callApi } from "../api/utils";
 
-const Register = ({ setToken }) => {
+const Register = ({ setToken, darkMode }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [matchPassword, setMatchPassword] = useState("");
@@ -35,12 +35,12 @@ const Register = ({ setToken }) => {
 
   return (
     <div className="container">
-      <div className="registerContainer">
+      <div className={darkMode ? "registerContainer-dark" : "registerContainer"}>
         <h2 className="registerHeader">
           <center>Create your account</center>
         </h2>
         <div className="regFormContainer">
-          <form className="registerForm">
+          <form className={darkMode ? "registerForm-dark" :"registerForm"}>
             <label className="registerLabels">Enter Email:</label>
             <input
               className="inputField"
@@ -80,7 +80,7 @@ const Register = ({ setToken }) => {
                 Create Account
               </button>
               <p>
-                Already registered? <a href="/login">Sign in!</a>
+                Already registered? <a href="/">Sign in!</a>
               </p>
             </div>
           </form>

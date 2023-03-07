@@ -48,7 +48,7 @@ function App() {
   }, []);
 
   
-  const getAllEntriesByUser = async () => {
+  const getAllEntriesByUser = async (token) => {
     try {
       let entries = await callApi({
         path: "/entries",
@@ -68,8 +68,8 @@ function App() {
   };
 
   useEffect(() => {
-    getAllEntriesByUser();
-  }, []);
+    getAllEntriesByUser(token);
+  }, [token]);
 
   useEffect(() => {
     setCurrentDate(stringifyCurrentDate());
@@ -82,9 +82,9 @@ function App() {
   const handleLogout = () => {
     localStorage.removeItem("token");
     navigate("/");
-    window.location.reload(false);
+    window.location.reload(false); //put in useEffect instead
   };
-  console.log('darkMode :>> ', darkMode);
+  console.log('allEntries :>> ', allEntries);
   return (
     <div className={darkMode ? "app-dark" : "app"}>
       <nav className={darkMode ? "navbarContainer-dark" : "navbarContainer"}>
@@ -96,13 +96,6 @@ function App() {
         <ul className="navbar">
           {!token ? (
             <>
-            <li className="navbarLinks" onClick={modeHandler}>
-              {darkMode ? (
-                <img className="mode-dark" alt="light mode" src={require("./assets/closed_eye.png")}></img>
-              ) : (
-                <img className="mode" alt="light mode" src={require("./assets/open_eye.png")}></img>
-              )}
-              </li>
               <li>
                 <Link className="navbarLinks" to="/register">
                   Register
@@ -112,6 +105,13 @@ function App() {
                 <Link className="navbarLinks" to="/">
                   Login
                 </Link>
+              </li>
+              <li className="navbarLinks" onClick={modeHandler}>
+              {darkMode ? (
+                <img className="mode-dark" alt="light mode" src={require("./assets/closed_eye.png")}></img>
+              ) : (
+                <img className="mode" alt="light mode" src={require("./assets/open_eye.png")}></img>
+              )}
               </li>
             </>
           ) : (
@@ -131,9 +131,6 @@ function App() {
                   All Entries
                 </Link>
               </li>
-              <li className="navbarLinks" onClick={modeHandler}>
-                Mode
-              </li>
               <li>
                 <Link
                   className="navbarLinks"
@@ -143,19 +140,15 @@ function App() {
                   Logout
                 </Link>
               </li>
+              <li className="navbarLinks" onClick={modeHandler}>
+              {darkMode ? (
+                <img className="mode-dark" alt="light mode" src={require("./assets/closed_eye.png")}></img>
+              ) : (
+                <img className="mode" alt="light mode" src={require("./assets/open_eye.png")}></img>
+              )}
+              </li>
             </>
           )}
-          {/* <li>
-          <button className="dropbtn">
-            Customize
-            <i className="fa fa-caret-down"></i>
-          </button>
-          <div className="dropdown-content">
-            <button>Dreamy</button>
-            <button>Sleek</button>
-            <button>Clean</button>
-          </div>
-            </li> */}
         </ul>
       </nav>
       <Routes>
@@ -165,9 +158,9 @@ function App() {
         ></Route>
         <Route
           path="/register"
-          element={<Register setToken={setToken} />}
+          element={<Register setToken={setToken} darkMode={darkMode}/>}
         ></Route>
-        <Route path="/" element={<Login setToken={setToken} />}></Route>
+        <Route path="/" element={<Login setToken={setToken} darkMode={darkMode} />}></Route>
         <Route
           path="/newEntry"
           element={
@@ -193,7 +186,7 @@ function App() {
         <Route
           path="/entries/entry/:id"
           element={
-            <EntryById allEntries={allEntries} currentDate={currentDate}/>
+            <EntryById allEntries={allEntries} currentDate={currentDate} darkMode={darkMode}/>
           }
         ></Route>
       </Routes>

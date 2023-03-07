@@ -2,7 +2,7 @@ import { callApi } from "../api/utils";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-const Login = ({ setToken }) => {
+const Login = ({ setToken, darkMode }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
@@ -27,12 +27,12 @@ const Login = ({ setToken }) => {
   };
   return (
     <div className="container">
-      <div className="registerContainer">
+      <div className={darkMode ? "registerContainer-dark" : "registerContainer"}>
         <h2 className="registerHeader">
           <center>Sign in to your account</center>
         </h2>
         <div className="regFormContainer">
-          <form className="registerForm">
+          <form className={darkMode ? "registerForm-dark" :"registerForm"}>
             <label className="registerLabels">Email:</label>
             <input
               className="inputField"

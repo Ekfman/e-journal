@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { callApi } from "../api/utils";
 
-const EntryById = ({ allEntries, currentDate }) => {
+const EntryById = ({ allEntries, currentDate, darkMode }) => {
   const [renderEntry, setRenderEntry] = useState({});
   const [editEntryButton, setEditEntryButton] = useState(false);
 
@@ -112,10 +112,10 @@ const EntryById = ({ allEntries, currentDate }) => {
 
   return (
     <div className="container">
-      <div className="singleEntryContainer">
+      <div className={darkMode ? "singleEntryContainer-dark" : "singleEntryContainer"}>
         {!editEntryButton ? (
           <>
-            <div className="allEntryContent">
+            <div className={darkMode ? "allEntryContent-dark" : "allEntryContent"}>
               <h2 className="entryTitle">{renderEntry.title}</h2>
               <p>{createEventDateDisplay()}</p>
               <p>{renderEntry.content}</p>
