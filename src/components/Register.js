@@ -13,6 +13,7 @@ const Register = ({ setToken, darkMode }) => {
   const submitHandler = async (e) => {
     e.preventDefault();
     try {
+      console.log(email, password);
       if (!email) window.alert("Must enter an a valid email address");
       if (!password) window.alert("Must enter a password");
       if (!matchPassword) window.alert("Please re-type your password")
@@ -24,6 +25,8 @@ const Register = ({ setToken, darkMode }) => {
           body: { email, password },
           path: "/users/register",
         });
+        console.log("account info", result);
+        if(!result) window.alert("Email already in use.")
         if (result) window.alert("You've successfully created an account!");
         setToken(result.token);
         navigate("/calendar");

@@ -6,8 +6,11 @@ const usersRouter = express.Router();
 
 usersRouter.post("/register", async (req, res, next) => {
     const { email, password } = req.body;
+  
+    console.log(req.body);
     try {
         const checkUser = await getUserByEmail(email);
+        console.log(checkUser);
         if (checkUser) {
           next({
             name: "Error signing up",
@@ -41,7 +44,7 @@ usersRouter.post("/register", async (req, res, next) => {
 usersRouter.post("/login", async (req, res, next) => {
   try {
     const { email, password } = req.body;
-
+    console.log('req.body :>> ', req.body);
     if (!email || !password) {
       next({
         name: "MissingCredentialsError",
@@ -50,7 +53,7 @@ usersRouter.post("/login", async (req, res, next) => {
     }
 
     const user = await validateAndGetUser({ email, password });
-
+    console.log('user :>> ', user);
     if (user) {
       const token = jwt.sign(
         {
@@ -69,5 +72,9 @@ usersRouter.post("/login", async (req, res, next) => {
     next({ name, message });
   }
 });
+
+// usersRouter.get("/all_users", async (req, res, next) => {
+//   const checkIfUser = await getUserByEmail()
+// })
 
 module.exports = usersRouter

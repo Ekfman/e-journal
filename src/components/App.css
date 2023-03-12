@@ -148,17 +148,44 @@ left: 0;
   display: flex;
   flex-direction: column;
   align-items: left;
+  color: white;
+ }
+
+ .registerForm a{
+ color: rgb(151, 151, 151);
+ }
+
+ .registerForm-dark a{
+  color: rgb(224, 224, 224)
+  }
+
+ .registerForm input{
+  border: white;
  }
 
  .registerForm-dark {
   display: flex;
   flex-direction: column;
   align-items: left;
+  /* font-weight: bold; */
+  font-family: avenir;
+ }
+
+ 
+
+ .registerForm-dark input{
+  border: white;
+  background-color: rgb(88 90 98 / 75%);
  }
 
  .registerForm-dark div {
   color: rgb(178, 178, 178);
  }
+
+ .registerForm-dark button{
+  background-color: rgb(88 90 98 / 75%);
+ }
+
 
  .registerForm-dark label {
   color: white;
