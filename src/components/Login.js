@@ -15,8 +15,9 @@ const Login = ({ setToken, darkMode }) => {
         body: { email, password },
         path: "/users/login",
       });
-      console.log(result);
       if (result) {
+        console.log(result);
+        console.log(result.token);
         setToken(result.token);
         localStorage.setItem("token", result.token);
         navigate("/calendar");

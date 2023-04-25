@@ -3,7 +3,8 @@ const { Client } = require("pg");
 const DB_NAME = "journal-entries";
 
 const DB_URL =
-  process.env.DATABASE_URL || `postgres://localhost:5432/${DB_NAME}`;
+  process.env.DATABASE_URL ||
+   `postgres://localhost:5432/${DB_NAME}`;
 
 let client;
 

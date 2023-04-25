@@ -62,6 +62,7 @@ usersRouter.post("/login", async (req, res, next) => {
         },
         process.env.JWT_SECRET
       );
+      console.log(token);
       res.send({
         message: "you're logged in!",
         token,
@@ -72,9 +73,5 @@ usersRouter.post("/login", async (req, res, next) => {
     next({ name, message });
   }
 });
-
-// usersRouter.get("/all_users", async (req, res, next) => {
-//   const checkIfUser = await getUserByEmail()
-// })
 
 module.exports = usersRouter

@@ -19,7 +19,9 @@ const Register = ({ setToken, darkMode }) => {
       if (!matchPassword) window.alert("Please re-type your password")
       if (matchPassword !== password) window.alert("Passwords must match")
       if (password.length < 8) window.alert("Password length too short");
-      if (matchPassword === password && password >= 8 && email) {
+      console.log("we made it until here");
+      if (matchPassword === password && password.length >= 8 && email) {
+        console.log("we made inside the if statement");
         const result = await callApi({
           method: "POST",
           body: { email, password },
@@ -28,6 +30,7 @@ const Register = ({ setToken, darkMode }) => {
         console.log("account info", result);
         if(!result) window.alert("Email already in use.")
         if (result) window.alert("You've successfully created an account!");
+        console.log(result.token);
         setToken(result.token);
         navigate("/calendar");
       }

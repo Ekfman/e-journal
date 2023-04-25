@@ -41,11 +41,11 @@ function App() {
   }, [token]);
 
   const [darkMode, setDarkMode] = useState(
-    window.localStorage.getItem("true") || "true"
+    localStorage.getItem("darkMode") === "true"
   );
   useEffect(() => {
-    window.localStorage.setItem("darkMode", true);
-  }, []);
+    localStorage.setItem("darkMode", darkMode);
+  }, [darkMode]);
 
   
   const getAllEntriesByUser = async (token) => {
@@ -54,7 +54,6 @@ function App() {
         path: "/entries",
         token
       });
-     console.log('entries :>> ', entries);
       entries.map((entry) => {
         entry.start = entry.eventDate;
         entry.end = entry.eventDate;
@@ -77,6 +76,7 @@ function App() {
 
   const modeHandler = () => {
     setDarkMode( prev => !prev)
+    console.log(darkMode);
   }
   
   const handleLogout = () => {
@@ -84,7 +84,7 @@ function App() {
     navigate("/");
     window.location.reload(false); //put in useEffect instead
   };
-  console.log('allEntries :>> ', allEntries);
+
   return (
     <div className={darkMode ? "app-dark" : "app"}>
       <nav className={darkMode ? "navbarContainer-dark" : "navbarContainer"}>
