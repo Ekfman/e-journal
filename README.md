@@ -1,5 +1,5 @@
 # CONFIDANT (electronic journal)
-CONFIDANT is for people who enjoy journaling (or want to get into it) but don't have the time or energy to write by hand. Understanding that anyone could use Microsoft Word or Google Docs as space to write, I wanted to be able to retrieve a past entry with ease in a calendar format. Using the 'react-big-calendar' library, I utilized the calendar and its capabilities as an intuitive way for users to create and view entries, as it assimulates digital scheduling.
+CONFIDANT is for people who enjoy journaling (or want to get into it) but don't have the time or energy to write by hand. Understanding that anyone could use Microsoft Word or Google Docs as space to write, I wanted to be able to retrieve a past entry with ease in a calendar format. Using the 'react-big-calendar' package, I utilized the calendar and its capabilities as an intuitive way for users to create and view entries, as it assimulates digital scheduling.
 
 ## Running Locally
 1. To run this application locally go to src>api>utils and make sure const baseURL="http//localhost:4000/api" is not commented out and that the heroku baseURL is commented out.
